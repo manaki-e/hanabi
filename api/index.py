@@ -49,7 +49,7 @@ def index(room_id, player_id):
     if request.method == "POST":
 
         if player_id != game.current_player:
-            game.add_history("相手のターンです。", player_id)
+            game.add_history("あなたのターンではありません。", player_id)
             return game.return_data(message, player, opponent)
 
         # * 残山札が0の場合
