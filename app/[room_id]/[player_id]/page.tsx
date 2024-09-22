@@ -10,10 +10,13 @@ import { ScrollShadow } from "@nextui-org/scroll-shadow";
 import { Slider } from "@nextui-org/slider";
 
 export default async function Page({ params }: { params: { room_id: string; player_id: string } }) {
-  let data = await fetch(`http://localhost:5328/${params.room_id}/${params.player_id}`, {
-    method: "GET",
-    cache: "no-cache",
-  });
+  let data = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/${params.room_id}/${params.player_id}`,
+    {
+      method: "GET",
+      cache: "no-cache",
+    }
+  );
   let dataset = await data.json();
 
   return (

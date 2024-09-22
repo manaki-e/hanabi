@@ -16,7 +16,7 @@ export const submitData = async (
     formData.append("act", submitter.value);
   }
 
-  const res = await fetch(`http://localhost:5328/${params.room_id}/${params.player_id}`, {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/${params.room_id}/${params.player_id}`, {
     method: "POST",
     body: formData,
   });

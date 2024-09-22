@@ -1,15 +1,20 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS
-from game import Game, Player
+from api.hanabi import Game, Player
+from dotenv import load_dotenv
+import os
 
 app = Flask(__name__)
-CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
+
+load_dotenv()
+APP_URL = os.getenv("APP_URL")
+CORS(app, resources={r"/*": {"origins": APP_URL}})
 
 games = {}
 players = {}
 
 
-@app.route("/<room_id>/<player_id>", methods=["GET", "POST"])
+@app.route("/api/<room_id>/<player_id>", methods=["GET", "POST"])
 def index(room_id, player_id):
 
     # * ルーティング変数の取得
