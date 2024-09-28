@@ -1,5 +1,6 @@
 import ActionSelect from "@/components/ActionSelect";
 import Card from "@/components/Card";
+import AutoReload from "@/components/function/AutoReload";
 import Message from "@/components/Message";
 import TeachSelect from "@/components/TeachSelect";
 import TrashTable from "@/components/TrashTable";
@@ -21,6 +22,8 @@ export default async function Page({ params }: { params: { room_id: string; play
 
   return (
     <>
+      <AutoReload isPlayer={dataset.current_player === Number(params.player_id)} />
+
       <div className="h-16 flex flex-col justify-center align-middle">
         <Message message={dataset.message} />
       </div>

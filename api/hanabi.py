@@ -156,5 +156,6 @@ class Game:
                 "remaining_cards": len(self.deck.cards),
                 "history": self.history,
                 "trash_cards": self.trash_cards.to_dict(),
+                "current_player": self.current_player,
             }
         )
