@@ -1,6 +1,7 @@
 import ActionSelect from "@/components/ActionSelect";
 import Card from "@/components/Card";
 import AutoReload from "@/components/function/AutoReload";
+import BanReload from "@/components/function/BanReload";
 import Message from "@/components/Message";
 import TeachSelect from "@/components/TeachSelect";
 import TrashTable from "@/components/TrashTable";
@@ -20,9 +21,12 @@ export default async function Page({ params }: { params: { room_id: string; play
   );
   let dataset = await data.json();
 
+  let isPlayer = dataset.current_player === Number(params.player_id);
+
   return (
     <>
-      <AutoReload isPlayer={dataset.current_player === Number(params.player_id)} />
+      <AutoReload isPlayer={isPlayer} />
+      <BanReload isPlayer={isPlayer} />
 
       <div className="h-16 flex flex-col justify-center align-middle">
         <Message message={dataset.message} />
