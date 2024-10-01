@@ -1,8 +1,17 @@
 "use client";
 
+import { TEACH_TOKEN } from "@/lib/constant";
 import { useEffect, useState } from "react";
 
-export default function Timer({ disabled }: { disabled: boolean }) {
+export default function Timer({
+  params,
+  disabled,
+  teach_token,
+}: {
+  params: { room_id: string; player_id: string };
+  disabled: boolean;
+  teach_token: number;
+}) {
   const [timeLeft, setTimeLeft] = useState(20);
 
   useEffect(() => {
@@ -13,7 +22,23 @@ export default function Timer({ disabled }: { disabled: boolean }) {
       setTimeLeft((prevTime) => {
         if (prevTime <= 1) {
           clearInterval(timer);
-          alert("時間切れです！");
+
+          const formData = new FormData();
+          if (teach_token === TEACH_TOKEN) {
+            formData.append("form_id", "hint");
+            formData.append("teach", "color");
+            formData.append("color", "red");
+          } else {
+            formData.append("form_id", "action");
+            formData.append("index", "0");
+            formData.append("act", "trash");
+          }
+
+          fetch(`${process.env.NEXT_PUBLIC_API_URL}/${params.room_id}/${params.player_id}`, {
+            method: "POST",
+            body: formData,
+          });
+          window.location.reload();
           return 0;
         }
         return prevTime - 1;
@@ -23,7 +48,7 @@ export default function Timer({ disabled }: { disabled: boolean }) {
     return () => {
       clearInterval(timer);
     };
-  }, []);
+  }, [params, disabled, teach_token]);
 
   const formatTime = (seconds: number) => {
     const remainingSeconds = seconds % 60;
