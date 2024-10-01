@@ -127,7 +127,7 @@ class Game:
     def trash(self, card):
         self.trash_cards.add(card)
         self.teach_token += 1
-        return f"{card.color}色 - {card.number}のカードを捨てました！"
+        return f"「{card.color} - {card.number}」のカードを捨てました！"
 
     def teach(self, opponent, color=None, number=None):
         self.teach_token -= 1

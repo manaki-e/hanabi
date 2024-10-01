@@ -85,7 +85,7 @@ def index(room_id, player_id):
                 color = request.form.get("color")
                 game.teach(opponent, color=color)
                 game.add_history(
-                    f"{color}色のカードについて、ヒントを伝えました", player_id
+                    f"{color}のカードについて、ヒントを伝えました", player_id
                 )
             else:
                 number = int(request.form.get("number"))
