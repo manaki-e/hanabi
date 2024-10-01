@@ -1,14 +1,12 @@
 "use client";
 import { useEffect } from "react";
 
-export default function Refresh({ isPlayer }: { isPlayer: boolean }) {
+export default function Refresh() {
   useEffect(() => {
-    if (!isPlayer) {
-      setTimeout(() => {
-        window.location.reload();
-      }, 3000);
-    }
-  }, [isPlayer]);
+    setTimeout(() => {
+      window.location.reload();
+    }, 3000);
+  });
 
   return null;
 }

@@ -2,11 +2,13 @@
 
 import { useEffect, useState } from "react";
 
-export default function Timer() {
-  const [timeLeft, setTimeLeft] = useState(30);
+export default function Timer({ disabled }: { disabled: boolean }) {
+  const [timeLeft, setTimeLeft] = useState(20);
 
   useEffect(() => {
-    // タイマーの開始
+    if (disabled) {
+      return;
+    }
     const timer = setInterval(() => {
       setTimeLeft((prevTime) => {
         if (prevTime <= 1) {
@@ -18,32 +20,19 @@ export default function Timer() {
       });
     }, 1000);
 
-    // beforeunloadイベントのリスナーを追加
-    const handleBeforeUnload = (event: BeforeUnloadEvent) => {
-      event.preventDefault();
-      event.returnValue = ""; // 一部のブラウザで必要
-      alert("ページを閉じようとしています。タイマーがリセットされます！");
-    };
-
-    window.addEventListener("beforeunload", handleBeforeUnload);
-
-    // クリーンアップ
     return () => {
       clearInterval(timer);
-      window.removeEventListener("beforeunload", handleBeforeUnload);
     };
   }, []);
 
-  // 時間をMM:SS形式にフォーマット
   const formatTime = (seconds: number) => {
-    const minutes = Math.floor(seconds / 60);
     const remainingSeconds = seconds % 60;
-    return `${String(minutes).padStart(2, "0")}:${String(remainingSeconds).padStart(2, "0")}`;
+    return `${String(remainingSeconds).padStart(2, "0")}`;
   };
 
   return (
-    <div>
-      残り時間: <span className="text-2xl">{formatTime(timeLeft)}</span>
+    <div className="aspect-square w-12 rounded-full border-4 bold text-2xl border-red-600 bg-red-100 m-2 flex justify-center items-center text-red-600">
+      {formatTime(timeLeft)}
     </div>
   );
 }

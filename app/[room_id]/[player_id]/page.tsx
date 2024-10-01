@@ -4,6 +4,7 @@ import AutoReload from "@/components/function/AutoReload";
 import BanReload from "@/components/function/BanReload";
 import Message from "@/components/Message";
 import TeachSelect from "@/components/TeachSelect";
+import Timer from "@/components/Timer";
 import TrashTable from "@/components/TrashTable";
 import { MISS_TOKEN, TEACH_TOKEN } from "@/lib/constant";
 import { Color } from "@/lib/types";
@@ -22,14 +23,18 @@ export default async function Page({ params }: { params: { room_id: string; play
   let dataset = await data.json();
 
   let isPlayer = dataset.current_player === Number(params.player_id);
+  let isTimer = Number(params.room_id) % 2 === 1;
 
   return (
     <>
-      <AutoReload isPlayer={isPlayer} />
-      <BanReload isPlayer={isPlayer} />
+      {!isPlayer && <AutoReload />}
+      {isPlayer && <BanReload />}
 
-      <div className="h-16 flex flex-col justify-center align-middle">
-        <Message message={dataset.message} />
+      <div className="flex">
+        <div className="h-16 flex flex-col justify-center align-middle flex-1">
+          <Message message={dataset.message} />
+        </div>
+        {isTimer && <Timer disabled={!isPlayer} />}
       </div>
 
       <div
@@ -92,7 +97,6 @@ export default async function Page({ params }: { params: { room_id: string; play
               className="max-w-md"
             />
           </div>
-          {/* <Timer /> */}
           <TrashTable trash_cards={dataset.trash_cards} />
         </div>
         <div className="flex flex-col justify-between overflow-hidden">
