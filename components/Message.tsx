@@ -1,6 +1,6 @@
 export default function Message({ message }: { message: string }) {
   return (
-    <div className="flex rounded-md bg-yellow-50 border-2 border-yellow-500 p-4 text-sm text-yellow-500 mx-8">
+    <div className="flex rounded-md bg-yellow-50 border-2 border-yellow-500 p-4 text-sm text-yellow-500">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 20 20"

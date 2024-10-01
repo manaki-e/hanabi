@@ -56,7 +56,7 @@ export default function Timer({
   };
 
   return (
-    <div className="aspect-square w-12 rounded-full border-4 bold text-2xl border-red-600 bg-red-100 m-2 flex justify-center items-center text-red-600">
+    <div className="aspect-square w-12 rounded-full border-3 bold text-2xl border-red-600 bg-red-100 m-2 flex justify-center items-center text-red-600">
       {formatTime(timeLeft)}
     </div>
   );

@@ -30,7 +30,7 @@ export default async function Page({ params }: { params: { room_id: string; play
       {!isPlayer && <AutoReload />}
       {isPlayer && <BanReload />}
 
-      <div className="flex">
+      <div className="flex mx-8 gap-8">
         <div className="h-16 flex flex-col justify-center align-middle flex-1">
           <Message message={dataset.message} />
         </div>
