@@ -1,82 +1,9 @@
-import random
-
 from flask import jsonify
 
-# * カードの色
-colors = ["blue", "green", "red", "white", "yellow"]
-# * カードの枚数
-card_numbers = [3, 2, 2, 2, 1]
-# * 教えることができる回数
-teach_token = 8
-# * 間違えられる回数
-mistake_token = 3
-
-
-# * カードのクラス
-class Card:
-    def __init__(self, color=None, number=None):
-        self.color = color
-        self.number = number
-
-    def __str__(self):
-        return f"{self.color} - {self.number}"
-
-    def to_dict(self):
-        return {"color": self.color, "number": self.number}
-
-
-# * プレイヤーのクラス
-class Player:
-    def __init__(self, first_hand):
-        self.hand = first_hand
-        self.info = [Card(None, None) for _ in range(5)]
-
-    def __str__(self):
-        return "\n".join([f"{hand.color}&{hand.number}" for hand in self.hand])
-
-    def add(self, card):
-        self.hand.append(card)
-        self.info.append(Card(None, None))
-
-    def discard(self, index):
-        self.hand.pop(index)
-        self.info.pop(index)
-
-    def get_info(self, indexes, color=None, number=None):
-        for index in indexes:
-            self.info[index].color = color
-            self.info[index].number = number
-
-
-# * デッキのクラス
-class Deck:
-    def __init__(self):
-        self.cards = []
-        for i in range(len(colors)):
-            for j in range(5):
-                for k in range(card_numbers[j]):
-                    self.cards.append(Card(colors[i], j + 1))
-
-    def __str__(self):
-        return "\n".join([f"{card.color} - {card.number}" for card in self.cards])
-
-    def shuffle(self):
-        random.shuffle(self.cards)
-
-    def draw(self):
-        return self.cards.pop()
-
-
-# * 捨て場のクラス
-class TrashCard:
-    def __init__(self):
-        self.cards = {color: [0] * 5 for color in colors}
-
-    def add(self, card):
-        self.cards[card.color][card.number - 1] += 1
-
-    def to_dict(self):
-        return self.cards
+from api.module.card import Card
+from api.module.deck import Deck
+from api.module.trash_card import TrashCard
+from api.config.constants import colors, teach_token, mistake_token
 
 
 # * ゲームのクラス
