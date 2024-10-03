@@ -27,8 +27,7 @@ class Card:
 
 # * プレイヤーのクラス
 class Player:
-    def __init__(self, name, first_hand):
-        self.name = name
+    def __init__(self, first_hand):
         self.hand = first_hand
         self.info = [Card(None, None) for _ in range(5)]
 
