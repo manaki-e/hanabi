@@ -1,7 +1,6 @@
 import ActionSelect from "@/components/ActionSelect";
 import Card from "@/components/Card";
 import AutoReload from "@/components/function/AutoReload";
-import BanReload from "@/components/function/BanReload";
 import Message from "@/components/Message";
 import TeachSelect from "@/components/TeachSelect";
 import Timer from "@/components/Timer";
@@ -28,7 +27,6 @@ export default async function Page({ params }: { params: { room_id: string; play
   return (
     <>
       {!isPlayer && <AutoReload />}
-      {isPlayer && <BanReload />}
 
       <div className="flex mx-8 gap-8">
         <div className="h-16 flex flex-col justify-center align-middle flex-1">
