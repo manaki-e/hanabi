@@ -48,10 +48,6 @@ def index(room_id, player_id):
     # * ゲームの実行処理
     if request.method == "POST":
 
-        if player_id != game.current_player:
-            game.add_history("あなたのターンではありません。", player_id)
-            return game.return_data(message, player, opponent)
-
         # * 残山札が0の場合
         if len(game.deck.cards) == 0:
             game.is_finished -= 1
@@ -67,13 +63,6 @@ def index(room_id, player_id):
             if action == "play":
                 game.add_history(game.play(card), player_id)
             elif action == "trash":
-                # * トークンが最大の場合は捨てることができない
-                if game.teach_token == 8:
-                    game.add_history(
-                        "トークンが最大なので捨てることができません。ヒントを与えるか、カードを場に出すことができます。",
-                        player_id,
-                    )
-                    return game.return_data(message, player, opponent)
                 game.add_history(game.trash(card), player_id)
 
             # * 手札の更新
