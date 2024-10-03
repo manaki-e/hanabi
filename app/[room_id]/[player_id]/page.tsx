@@ -120,7 +120,11 @@ export default async function Page({ params }: { params: { room_id: string; play
         </div>
         <div className="flex-1 flex justify-between flex-col">
           <div className="my-4">
-            <TeachSelect params={params} opponent_hand={dataset.opponent_hand} />
+            <TeachSelect
+              params={params}
+              opponent_hand={dataset.opponent_hand}
+              teach_token={dataset.teach_token}
+            />
           </div>
           <ScrollShadow className="h-full">
             <div className="text-xs">
