@@ -141,7 +141,7 @@ export default async function Page({ params }: { params: { room_id: string; play
             </div>
           </ScrollShadow>
           <div className="my-4">
-            <ActionSelect params={params} />
+            <ActionSelect params={params} teach_token={dataset.teach_token} />
           </div>
         </div>
       </div>
