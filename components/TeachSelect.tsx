@@ -10,10 +10,12 @@ export default function TeachSelect({
   params,
   opponent_hand,
   teach_token,
+  isPlayer,
 }: {
   params: { room_id: string; player_id: string };
   opponent_hand: { color: string; number: number }[];
   teach_token: number;
+  isPlayer: boolean;
 }) {
   const [selectedOption, setSelectedOption] = useState("");
   const [selectedColor, setSelectedColor] = useState("");
@@ -37,6 +39,7 @@ export default function TeachSelect({
   const uniqueNumbers = Array.from(new Set(opponent_hand.map((card) => card.number))).sort();
 
   const isButtonDisabled =
+    !isPlayer ||
     teach_token === 0 ||
     (selectedOption === "" && selectedColor === "" && selectedNumber === "") ||
     (selectedOption === "color" && selectedColor === "") ||

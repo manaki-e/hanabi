@@ -9,9 +9,11 @@ import { ChangeEvent, useState } from "react";
 export default function ActionSelect({
   params,
   teach_token,
+  isPlayer,
 }: {
   params: { room_id: string; player_id: string };
   teach_token: number;
+  isPlayer: boolean;
 }) {
   // State for selected index
   const [selectedIndex, setSelectedIndex] = useState("");
@@ -22,7 +24,7 @@ export default function ActionSelect({
   };
 
   // Determine if the button should be disabled
-  const isButtonDisabled = selectedIndex === "";
+  const isButtonDisabled = selectedIndex === "" || !isPlayer;
   const isTrashButtonDisabled = isButtonDisabled || teach_token === TEACH_TOKEN;
 
   return (
