@@ -123,6 +123,7 @@ export default async function Page({ params }: { params: { room_id: string; play
               opponent_hand={dataset.opponent_hand}
               teach_token={dataset.teach_token}
               isPlayer={isPlayer}
+              isTimer={isTimer}
             />
           </div>
           <ScrollShadow className="h-full">
@@ -140,7 +141,12 @@ export default async function Page({ params }: { params: { room_id: string; play
             </div>
           </ScrollShadow>
           <div className="my-4">
-            <ActionSelect params={params} teach_token={dataset.teach_token} isPlayer={isPlayer} />
+            <ActionSelect
+              params={params}
+              teach_token={dataset.teach_token}
+              isPlayer={isPlayer}
+              isTimer={isTimer}
+            />
           </div>
         </div>
       </div>

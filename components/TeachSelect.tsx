@@ -4,22 +4,29 @@ import { useState } from "react";
 import { Button } from "@nextui-org/button";
 import { Select, SelectItem } from "@nextui-org/select";
 import { submitData } from "@/lib/submitData";
-import { TEACH_TOKEN } from "@/lib/constant";
+import { useTimer } from "./function/timer.hooks";
+import { CircularProgress } from "@nextui-org/progress";
 
 export default function TeachSelect({
   params,
   opponent_hand,
   teach_token,
   isPlayer,
+  isTimer,
 }: {
   params: { room_id: string; player_id: string };
   opponent_hand: { color: string; number: number }[];
   teach_token: number;
   isPlayer: boolean;
+  isTimer: boolean;
 }) {
   const [selectedOption, setSelectedOption] = useState("");
   const [selectedColor, setSelectedColor] = useState("");
   const [selectedNumber, setSelectedNumber] = useState("");
+
+  const [isLoading, setIsLoading] = useState(false);
+
+  const timeLeft = useTimer({ disabled: !isTimer });
 
   const handleSelectChange = (value: string) => {
     setSelectedOption(value);
@@ -45,11 +52,21 @@ export default function TeachSelect({
     (selectedOption === "color" && selectedColor === "") ||
     (selectedOption === "number" && selectedNumber === "");
 
+  const handleSubmit = (event: any) => {
+    if (!isTimer) {
+      submitData(event, params);
+      return;
+    }
+    event.preventDefault();
+    setIsLoading(true);
+    setTimeout(() => {
+      submitData(event, params);
+      setIsLoading(false);
+    }, (timeLeft - 1) * 1000);
+  };
+
   return (
-    <form
-      onSubmit={(event) => submitData(event, params)}
-      className="flex flex-col gap-2 align-middle"
-    >
+    <form onSubmit={handleSubmit} className="flex flex-col gap-2 align-middle">
       <input type="hidden" name="form_id" value="hint" />
       <div className="flex flex-col gap-4">
         <Select
@@ -93,6 +110,11 @@ export default function TeachSelect({
       <Button type="submit" color="primary" isDisabled={isButtonDisabled}>
         教える
       </Button>
+      {isLoading && (
+        <div className="w-screen h-screen z-50 bg-white opacity-60 absolute top-0 left-0 flex justify-center items-center">
+          <CircularProgress size="lg" aria-label="Loading..." color="primary" />
+        </div>
+      )}
     </form>
   );
 }

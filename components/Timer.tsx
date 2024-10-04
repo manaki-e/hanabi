@@ -1,7 +1,8 @@
 "use client";
 
+import { useEffect } from "react";
+import { useTimer } from "./function/timer.hooks";
 import { TEACH_TOKEN } from "@/lib/constant";
-import { useEffect, useState } from "react";
 
 export default function Timer({
   params,
@@ -12,43 +13,27 @@ export default function Timer({
   disabled: boolean;
   teach_token: number;
 }) {
-  const [timeLeft, setTimeLeft] = useState(20);
+  const timeLeft = useTimer({ disabled });
 
   useEffect(() => {
-    if (disabled) {
-      return;
-    }
-    const timer = setInterval(() => {
-      setTimeLeft((prevTime) => {
-        if (prevTime <= 1) {
-          clearInterval(timer);
-
-          const formData = new FormData();
-          if (teach_token === TEACH_TOKEN) {
-            formData.append("form_id", "hint");
-            formData.append("teach", "color");
-            formData.append("color", "red");
-          } else {
-            formData.append("form_id", "action");
-            formData.append("index", "0");
-            formData.append("act", "trash");
-          }
-
-          fetch(`${process.env.NEXT_PUBLIC_API_URL}/${params.room_id}/${params.player_id}`, {
-            method: "POST",
-            body: formData,
-          });
-          window.location.reload();
-          return 0;
-        }
-        return prevTime - 1;
+    if (timeLeft <= 1) {
+      const formData = new FormData();
+      if (teach_token === TEACH_TOKEN) {
+        formData.append("form_id", "hint");
+        formData.append("teach", "color");
+        formData.append("color", "red");
+      } else {
+        formData.append("form_id", "action");
+        formData.append("index", "0");
+        formData.append("act", "trash");
+      }
+      fetch(`${process.env.NEXT_PUBLIC_API_URL}/${params.room_id}/${params.player_id}`, {
+        method: "POST",
+        body: formData,
       });
-    }, 1000);
-
-    return () => {
-      clearInterval(timer);
-    };
-  }, [params, disabled, teach_token]);
+      window.location.reload();
+    }
+  }, [timeLeft]);
 
   const formatTime = (seconds: number) => {
     const remainingSeconds = seconds % 60;
