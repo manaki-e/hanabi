@@ -26,8 +26,8 @@ def index(room_id, player_id):
     if room_id not in games:
         games[room_id] = Game()
         players[room_id] = {
-            0: Player([games[room_id].draw() for _ in range(5)]),
-            1: Player([games[room_id].draw() for _ in range(5)]),
+            0: Player([games[room_id].deck.draw() for _ in range(5)]),
+            1: Player([games[room_id].deck.draw() for _ in range(5)]),
         }
 
     game = games[room_id]

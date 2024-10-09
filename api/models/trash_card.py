@@ -10,22 +10,3 @@ class TrashCard:
 
     def to_dict(self):
         return self.cards
-
-    def get_discardable_cards(self, field_cards):
-        discardable_cards = []
-        for color, numbers in self.cards.items():
-            for index, number in enumerate(numbers):
-                if number == card_numbers[index]:
-                    discardable_cards.extend(
-                        Card(color, i + 1) for i in range(index, len(numbers))
-                    )
-                    break
-
-        for card in field_cards:
-            if card.number == 0:
-                continue
-            discardable_cards.extend(
-                Card(card.color, i + 1) for i in range(card.number)
-            )
-
-        return discardable_cards

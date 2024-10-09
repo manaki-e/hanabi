@@ -9,9 +9,8 @@ from api.core.config import colors, teach_token, mistake_token
 # * ゲームのクラス
 class Game:
     def __init__(self):
-        # デッキを作成してシャッフル
+        # デッキを作成
         self.deck = Deck()
-        self.deck.shuffle()
 
         # フィールドを作成
         self.field = [Card(color, 0) for color in colors]
@@ -34,9 +33,6 @@ class Game:
 
     def check_finished(self):
         return self.mistake_token == 0 or self.is_finished == 0
-
-    def draw(self):
-        return self.deck.draw()
 
     def play(self, card):
         for field_card in self.field:

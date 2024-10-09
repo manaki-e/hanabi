@@ -6,9 +6,6 @@ class Player:
         self.hand = first_hand
         self.info = [Card(None, None) for _ in range(5)]
 
-    def __str__(self):
-        return "\n".join([f"{hand.color}&{hand.number}" for hand in self.hand])
-
     def add(self, card):
         self.hand.append(card)
         self.info.append(Card(None, None))
