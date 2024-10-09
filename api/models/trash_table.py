@@ -1,7 +1,7 @@
 from api.core.config import colors
 
 
-class TrashCard:
+class TrashTable:
     def __init__(self):
         self.cards = {color: [0] * 5 for color in colors}
 

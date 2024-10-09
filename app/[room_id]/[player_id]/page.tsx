@@ -97,7 +97,7 @@ export default async function Page({ params }: { params: { room_id: string; play
               className="max-w-md"
             />
           </div>
-          <TrashTable trash_cards={dataset.trash_cards} />
+          <TrashTable trash_table={dataset.trash_table} />
         </div>
         <div className="flex flex-col justify-between overflow-hidden">
           <div className="flex gap-4 m-4 overflow-hidden">

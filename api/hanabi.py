@@ -2,7 +2,7 @@ from flask import jsonify
 
 from api.models.card import Card
 from api.models.deck import Deck
-from api.models.trash_card import TrashCard
+from api.models.trash_table import TrashTable
 from api.core.config import colors, teach_token, mistake_token
 
 
@@ -13,7 +13,7 @@ class Game:
         self.deck = Deck()
 
         # フィールドを作成
-        self.field = [Card(color, 0) for color in colors]
+        self.field_cards = [Card(color, 0) for color in colors]
 
         # トークンを設定
         self.teach_token = teach_token
@@ -26,7 +26,7 @@ class Game:
         self.history = []
 
         # 捨てられたカード
-        self.trash_cards = TrashCard()
+        self.trash_table = TrashTable()
 
     def switch_turn(self):
         self.current_player = 1 - self.current_player
@@ -35,7 +35,7 @@ class Game:
         return self.mistake_token == 0 or self.is_finished == 0
 
     def play(self, card):
-        for field_card in self.field:
+        for field_card in self.field_cards:
             if field_card.color == card.color:
                 if abs(card.number - field_card.number) == 1:
                     field_card.number = card.number
@@ -44,10 +44,11 @@ class Game:
                     return "カードを場に出すことに成功しました！"
 
         self.mistake_token -= 1
+        self.trash_table.add(card)
         return "カードを場に出すことに失敗しました！"
 
     def trash(self, card):
-        self.trash_cards.add(card)
+        self.trash_table.add(card)
         self.teach_token += 1
         return f"「{card.color} - {card.number}」のカードを捨てました！"
 
@@ -71,13 +72,13 @@ class Game:
                 "message": message,
                 "teach_token": self.teach_token,
                 "mistake_token": self.mistake_token,
-                "field_cards": [card.to_dict() for card in self.field],
+                "field_cards": [card.to_dict() for card in self.field_cards],
                 "opponent_hand": [card.to_dict() for card in opponent.hand],
                 "player_hand": [card.to_dict() for card in player.hand],
                 "player_info": [card.to_dict() for card in player.info],
                 "remaining_cards": len(self.deck.cards),
                 "history": self.history,
-                "trash_cards": self.trash_cards.to_dict(),
+                "trash_table": self.trash_table.to_dict(),
                 "current_player": self.current_player,
             }
         )

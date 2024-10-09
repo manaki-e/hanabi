@@ -3,7 +3,7 @@
 import { Color } from "@/lib/types";
 import { Table, TableHeader, TableBody, TableColumn, TableRow, TableCell } from "@nextui-org/table";
 
-export default function TrashTable({ trash_cards }: { trash_cards: Record<Color, number[]> }) {
+export default function TrashTable({ trash_table }: { trash_table: Record<Color, number[]> }) {
   const getCellValue = (array: number[], index: number) =>
     index < array.length ? array[index] : 0;
 
@@ -36,19 +36,19 @@ export default function TrashTable({ trash_cards }: { trash_cards: Record<Color,
           <TableRow key={rowIndex}>
             <TableCell>{rowIndex + 1}</TableCell>
             <TableCell className="text-blue-500">
-              {getCellValue(trash_cards.blue, rowIndex)}
+              {getCellValue(trash_table.blue, rowIndex)}
             </TableCell>
             <TableCell className="text-green-500">
-              {getCellValue(trash_cards.green, rowIndex)}
+              {getCellValue(trash_table.green, rowIndex)}
             </TableCell>
             <TableCell className="text-red-500">
-              {getCellValue(trash_cards.red, rowIndex)}
+              {getCellValue(trash_table.red, rowIndex)}
             </TableCell>
             <TableCell className="text-gray-500">
-              {getCellValue(trash_cards.white, rowIndex)}
+              {getCellValue(trash_table.white, rowIndex)}
             </TableCell>
             <TableCell className="text-yellow-500">
-              {getCellValue(trash_cards.yellow, rowIndex)}
+              {getCellValue(trash_table.yellow, rowIndex)}
             </TableCell>
           </TableRow>
         ))}
