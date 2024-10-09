@@ -1,9 +1,8 @@
 import random
-from api.module.card import Card
-from api.config.constants import colors, card_numbers
+from api.models.card import Card
+from api.core.config import colors, card_numbers
 
 
-# * デッキのクラス
 class Deck:
     def __init__(self):
         self.cards = []

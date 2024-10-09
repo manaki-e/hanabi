@@ -1,7 +1,6 @@
-from api.module.card import Card
+from api.models.card import Card
 
 
-# * プレイヤーのクラス
 class Player:
     def __init__(self, first_hand):
         self.hand = first_hand

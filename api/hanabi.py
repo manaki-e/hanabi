@@ -1,9 +1,9 @@
 from flask import jsonify
 
-from api.module.card import Card
-from api.module.deck import Deck
-from api.module.trash_card import TrashCard
-from api.config.constants import colors, teach_token, mistake_token
+from api.models.card import Card
+from api.models.deck import Deck
+from api.models.trash_card import TrashCard
+from api.core.config import colors, teach_token, mistake_token
 
 
 # * ゲームのクラス
