@@ -1,3 +1,4 @@
+import ActionHistory from "@/components/ActionHistory";
 import ActionSelect from "@/components/ActionSelect";
 import Card from "@/components/Card";
 import AutoReload from "@/components/function/AutoReload";
@@ -8,7 +9,6 @@ import TrashTable from "@/components/TrashTable";
 import { MISS_TOKEN, TEACH_TOKEN } from "@/lib/constant";
 import { Color } from "@/lib/types";
 import { Divider } from "@nextui-org/divider";
-import { ScrollShadow } from "@nextui-org/scroll-shadow";
 import { Slider } from "@nextui-org/slider";
 
 export default async function Page({ params }: { params: { room_id: string; player_id: string } }) {
@@ -126,20 +126,7 @@ export default async function Page({ params }: { params: { room_id: string; play
               isTimer={isTimer}
             />
           </div>
-          <ScrollShadow className="h-full">
-            <div className="text-xs">
-              {dataset.history.map(
-                (history: { player_id: number; message: string }, index: number) => (
-                  <div key={index}>
-                    <p>
-                      {history.player_id === Number(params.player_id) ? "自分" : "相手"}：
-                      {history.message}
-                    </p>
-                  </div>
-                )
-              )}
-            </div>
-          </ScrollShadow>
+          <ActionHistory history={dataset.history} params={params} />
           <div className="my-4">
             <ActionSelect
               params={params}
