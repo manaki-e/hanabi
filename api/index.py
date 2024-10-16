@@ -71,6 +71,7 @@ def index(room_id, player_id):
             player.add(game.deck.draw())
 
         elif form_id == "hint":
+            game.teach_token -= 1
             if request.form.get("teach") == "color":
                 color = request.form.get("color")
                 opponent.get_info(color=color)
