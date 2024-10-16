@@ -14,7 +14,9 @@ class Player:
         self.hand.pop(index)
         self.info.pop(index)
 
-    def get_info(self, indexes, color=None, number=None):
-        for index in indexes:
-            self.info[index].color = color
-            self.info[index].number = number
+    def get_info(self, color=None, number=None):
+        for index, card in enumerate(self.hand):
+            if card.color == color:
+                self.info[index].color = color
+            if card.number == number:
+                self.info[index].number = number

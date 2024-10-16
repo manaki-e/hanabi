@@ -52,17 +52,6 @@ class Game:
         self.teach_token += 1
         return f"「{card.color} - {card.number}」のカードを捨てました！"
 
-    def teach(self, opponent, color=None, number=None):
-        self.teach_token -= 1
-        if color is not None:
-            for index, card in enumerate(opponent.hand):
-                if card.color == color:
-                    opponent.info[index].color = color
-        if number is not None:
-            for index, card in enumerate(opponent.hand):
-                if card.number == number:
-                    opponent.info[index].number = number
-
     def add_history(self, message, player_id):
         self.history.append({"message": message, "player_id": player_id})
 
