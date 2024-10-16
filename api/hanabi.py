@@ -71,3 +71,29 @@ class Game:
                 "current_player": self.current_player,
             }
         )
+
+    def get_discardable_cards(self):
+        """
+        _summary_
+            捨てられたカードと場にあるカードから、捨てることができるカード一覧を取得する
+
+        Returns:
+            _type_: List[Card]
+        """
+        discardable_cards = []
+        for color, numbers in self.trash_table.cards.items():
+            for index, number in enumerate(numbers):
+                if number == card_numbers[index]:
+                    discardable_cards.extend(
+                        Card(color, i + 1) for i in range(index, len(numbers))
+                    )
+                    break
+
+        for card in self.field_cards:
+            if card.number == 0:
+                continue
+            discardable_cards.extend(
+                Card(card.color, i + 1) for i in range(card.number)
+            )
+
+        return discardable_cards
