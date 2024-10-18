@@ -41,11 +41,11 @@ class Game:
                     field_card.number = card.number
                     if card.number == 5:
                         self.teach_token += 1
-                    return "カードを場に出すことに成功しました！"
+                    return f"「{card.color} - {card.number}」のカードを場に出すことに成功しました！"
 
         self.mistake_token -= 1
         self.trash_table.add(card)
-        return "カードを場に出すことに失敗しました！"
+        return f"「{card.color} - {card.number}」カードを場に出すことに失敗しました！"
 
     def trash(self, card):
         self.trash_table.add(card)

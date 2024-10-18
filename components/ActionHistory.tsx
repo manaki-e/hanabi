@@ -18,7 +18,7 @@ export default function ActionHistory({
 
   return (
     <ScrollShadow className="h-full" offset={10} ref={scrollableRef}>
-      <ul className="text-xs py-4">
+      <ul className="text-xs py-4 leading-normal">
         {history.map((action, index) => (
           <li key={index}>
             {action.player_id === Number(params.player_id) ? "自分" : "相手"}：{action.message}
