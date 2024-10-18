@@ -68,7 +68,8 @@ def index(room_id, player_id):
 
             # * 手札の更新
             player.discard(index)
-            player.add(game.deck.draw())
+            if len(game.deck.cards) > 0:
+                player.add(game.deck.draw())
 
         elif form_id == "hint":
             game.teach_token -= 1
