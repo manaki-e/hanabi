@@ -116,8 +116,6 @@ def index(room_id, player_id):
             card = opponent.hand[index]
             game.add_history(game.play(card), 1)
             opponent.discard(index)
-            if len(game.deck.cards) > 0:
-                opponent.add(game.deck.draw())
         # * 破棄可能なカードを持っていば捨てる
         elif opponent.check_discardable(game.get_discardable_cards()) is not None:
             index = opponent.check_discardable(game.get_discardable_cards())
