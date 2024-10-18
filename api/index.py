@@ -100,38 +100,50 @@ def index(room_id, player_id):
         return game.return_data(message, player, opponent)
 
     if isVsAgent and game.current_player == 1:
+
+        # * 残山札が0の場合
+        if len(game.deck.cards) == 0:
+            game.is_finished -= 1
+
         # * プレイ可能なカードを持っていればプレイする
         if opponent.check_playable(game.field_cards) is not None:
             index = opponent.check_playable(game.field_cards)
             card = opponent.hand[index]
             game.add_history(game.play(card), 1)
             opponent.discard(index)
-            opponent.add(game.deck.draw())
+            if len(game.deck.cards) > 0:
+                opponent.add(game.deck.draw())
+        # * 破棄可能なカードを持っていば捨てる
         elif opponent.check_discardable(game.get_discardable_cards()) is not None:
             index = opponent.check_discardable(game.get_discardable_cards())
             card = opponent.hand[index]
             game.add_history(game.trash(card), 1)
             opponent.discard(index)
-            opponent.add(game.deck.draw())
+            if len(game.deck.cards) > 0:
+                opponent.add(game.deck.draw())
         elif game.teach_token > 0:
             game.teach_token -= 1
+            # * 相⼿がプレイ可能なカードを持っていたら、⾊または数字のヒントを与える
             if any(opponent.check_opponent_playable(player.hand, game.field_cards)):
                 color, number = opponent.teach_hint(
                     opponent.check_opponent_playable(player.hand, game.field_cards),
                     player.hand,
                 )
+            # * 相⼿がプレイ可能なカードを持っていなかったら、与えてない情報の中からランダムにヒントを与える
             else:
                 color, number = opponent.teach_random_hint(player.hand)
             player.get_info(color=color, number=number)
             game.add_history(
                 f"{color or number}のカードについて、ヒントを伝えました", 1
             )
+        # * ヒントトークンが残っていなかったら、⾃分のカードからランダムに1枚捨てる
         else:
             index = opponent.random_discard()
             card = opponent.hand[index]
             game.add_history(game.trash(card), 1)
             opponent.discard(index)
-            opponent.add(game.deck.draw())
+            if len(game.deck.cards) > 0:
+                opponent.add(game.deck.draw())
         game.switch_turn()
         return game.return_data(message, player, opponent)
 
