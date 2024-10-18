@@ -2,6 +2,7 @@ from flask import Flask, jsonify, request
 from flask_cors import CORS
 from api.hanabi import Game
 from api.models.player import Player
+from api.models.agent import Agent
 from dotenv import load_dotenv
 import os
 
@@ -18,17 +19,26 @@ players = {}
 @app.route("/api/<room_id>/<player_id>", methods=["GET", "POST"])
 def index(room_id, player_id):
 
+    # * VSエージェントまたはVS人間
+    isVsAgent = int(player_id) == 2
+
     # * ルーティング変数の取得
     room_id = int(room_id)
-    player_id = int(player_id)
+    player_id = int(player_id) % 2
 
     # * ゲームの取得または新規作成
     if room_id not in games:
         games[room_id] = Game()
-        players[room_id] = {
-            0: Player([games[room_id].deck.draw() for _ in range(5)]),
-            1: Player([games[room_id].deck.draw() for _ in range(5)]),
-        }
+        if isVsAgent:
+            players[room_id] = {
+                0: Player([games[room_id].deck.draw() for _ in range(5)]),
+                1: Agent([games[room_id].deck.draw() for _ in range(5)]),
+            }
+        else:
+            players[room_id] = {
+                0: Player([games[room_id].deck.draw() for _ in range(5)]),
+                1: Player([games[room_id].deck.draw() for _ in range(5)]),
+            }
 
     game = games[room_id]
     player = players[room_id][player_id]
@@ -37,7 +47,6 @@ def index(room_id, player_id):
     #  * ゲームが終了している場合
     if game.check_finished():
         message = "ゲームが終了しました。現在の合計点数を確認してください。"
-        game.add_history(message, player_id)
         return game.return_data(message, player, opponent)
 
     message = (
@@ -88,6 +97,48 @@ def index(room_id, player_id):
 
         # * ターンの切り替え
         game.switch_turn()
+        return game.return_data(message, player, opponent)
+
+    if isVsAgent and game.current_player == 1:
+        # * プレイ可能なカードを持っていればプレイする
+        if opponent.check_playable(game.field_cards) is not None:
+            index = opponent.check_playable(game.field_cards)
+            print(index)
+            card = opponent.hand[index]
+            game.add_history(f"{game.play(card)}{card.number}{card.color}{index}", 1)
+            opponent.discard(index)
+            opponent.add(game.deck.draw())
+        elif opponent.check_discardable(game.get_discardable_cards()) is not None:
+            index = opponent.check_discardable(game.get_discardable_cards())
+            card = opponent.hand[index]
+            game.add_history(game.trash(card), 1)
+            opponent.discard(index)
+            opponent.add(game.deck.draw())
+        elif game.teach_token > 0:
+            game.teach_token -= 1
+            if any(opponent.check_opponent_playable(player.hand, game.field_cards)):
+                color, number = opponent.teach_hint(
+                    opponent.check_opponent_playable(player.hand, game.field_cards),
+                    player.hand,
+                )
+                player.get_info(color=color, number=number)
+                game.add_history(
+                    f"{color or number}のカードについて、ヒントを伝えました", 1
+                )
+            else:
+                color, number = opponent.teach_random_hint(player.hand)
+                player.get_info(color=color, number=number)
+                game.add_history(
+                    f"{color or number}のカードについて、ヒントを伝えました", 1
+                )
+        else:
+            index = opponent.random_discard()
+            card = opponent.hand[index]
+            game.add_history(game.trash(card), 1)
+            opponent.discard(index)
+            opponent.add(game.deck.draw())
+        game.switch_turn()
+        return game.return_data(message, player, opponent)
 
     return game.return_data(message, player, opponent)
 

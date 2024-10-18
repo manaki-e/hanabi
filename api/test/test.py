@@ -93,7 +93,7 @@ class Player:
 
 
 class Agent:
-    def __init__(self, first_hand, game):
+    def __init__(self, first_hand):
         self.hand = first_hand
         self.info = [CardModel() for _ in range(5)]
 
@@ -116,16 +116,16 @@ class Agent:
                     self.info[index].cards[color] = [0] * 5
         if number is not None:
             for index, card in enumerate(self.hand):
-                for color_variant in colors:
-                    self.info[index].cards[color_variant] = [
-                        (
-                            int(card.number == number)
-                            * self.info[index].cards[color_variant][i]
-                        )
-                        for i in range(len(self.info[index].cards[color_variant]))
-                    ]
+                if card.number == number:
+                    for color_variant in colors:
+                        for i in range(5):
+                            if i != number - 1:
+                                self.info[index].cards[color_variant][i] = 0
+                else:
+                    for color_variant in colors:
+                        self.info[index].cards[color_variant][number - 1] = 0
 
-    def check_playable(self):
+    def check_playable(self, field_cards):
         """
         _summary_
             プレイ可能なカードがあるかどうかをチェックする
@@ -141,11 +141,11 @@ class Agent:
                     for color, numbers in possible_cards.items()
                     for number in numbers
                 ]
-            ).issubset(game.field_cards):
+            ).issubset(field_cards):
                 return index
         return None
 
-    def check_opponent_playable(self, opponent_hand):
+    def check_opponent_playable(self, opponent_hand, field_cards):
         """
         _summary_
             相手の手札に対してプレイ可能なカードがあるかどうかをチェックする
@@ -155,13 +155,13 @@ class Agent:
         """
         playable_cards = []
         for index, card in enumerate(opponent_hand):
-            if Card(card.color, card.number - 1) in game.field_cards:
+            if Card(card.color, card.number - 1) in field_cards:
                 playable_cards.append(True)
             else:
                 playable_cards.append(False)
         return playable_cards
 
-    def check_discardable(self):
+    def check_discardable(self, discardable_cards):
         """
         _summary_
             プレイ可能なカードがあるかどうかをチェックする
@@ -169,7 +169,6 @@ class Agent:
         Returns
             __type__ : int
         """
-        discardable_cards = game.get_discardable_cards()
         for index, card_model in enumerate(self.info):
             possible_cards = card_model.get_possible_cards()
             if set(
@@ -250,7 +249,7 @@ class Agent:
 
 class CardModel:
     def __init__(self):
-        self.cards = {color: card_numbers for color in colors}
+        self.cards = {color: list(card_numbers) for color in colors}
 
     def __eq__(self, other):
         return self.cards == other.cards
@@ -279,7 +278,6 @@ game.trash_table.add(Card("red", 2))
 game.trash_table.add(Card("red", 2))
 agent = Agent(
     [Card("red", 1), Card("red", 2), Card("red", 3), Card("red", 4), Card("red", 5)],
-    game,
 )
 game.field_cards = [
     Card("red", 1),
@@ -306,7 +304,7 @@ agent.info[1].cards = {
     "green": [0, 0, 0, 0, 0],
     "yellow": [0, 0, 0, 0, 0],
 }
-print(agent.check_playable())
+print(agent.check_playable(game.field_cards))
 
 # * テスト②：破棄可能なカードがあるかどうかをチェックする
 # すでに捨てられたカード以上のカードしかないので捨てることができる
@@ -325,7 +323,7 @@ agent.info[3].cards = {
     "green": [0, 0, 0, 0, 0],
     "yellow": [1, 2, 0, 0, 0],
 }
-print(agent.check_discardable())
+print(agent.check_discardable(game.get_discardable_cards()))
 
 # * テスト③：相手の手札に対してプレイ可能なカードがあるかどうかをチェックする
 player = Player(
@@ -337,10 +335,14 @@ player = Player(
         Card("yellow", 3),
     ]
 )
-print(agent.check_opponent_playable(player.hand))
+print(agent.check_opponent_playable(player.hand, game.field_cards))
 
 # * テスト③-1：相手がプレイ可能なカードを持っていたら、色または数字のヒントを与える
-print(agent.teach_hint(agent.check_opponent_playable(player.hand), player.hand))
+print(
+    agent.teach_hint(
+        agent.check_opponent_playable(player.hand, game.field_cards), player.hand
+    )
+)
 
 # * テスト④：相手がプレイ可能なカードを持っていなかったら、ランダムにヒントを与える
 print(agent.teach_random_hint(player.hand))

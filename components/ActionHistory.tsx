@@ -17,7 +17,12 @@ export default function ActionHistory({
           .reverse()
           .map((action, index) => (
             <li key={index}>
-              {action.player_id === Number(params.player_id) ? "自分" : "相手"}：{action.message}
+              {action.player_id === Number(params.player_id) % 2
+                ? "自分"
+                : Number(params.player_id) === 2
+                ? "AI"
+                : "相手"}
+              ：{action.message}
             </li>
           ))}
       </ul>

@@ -3,7 +3,7 @@ from api.core.config import colors, card_numbers
 
 class CardModel:
     def __init__(self):
-        self.cards = {color: card_numbers for color in colors}
+        self.cards = {color: list(card_numbers) for color in colors}
 
     def __eq__(self, other):
         return self.cards == other.cards

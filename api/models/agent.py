@@ -1,10 +1,11 @@
 import random
+from api.models.card import Card
 from api.models.card_model import CardModel
 from api.core.config import colors
 
 
 class Agent:
-    def __init__(self, first_hand, game):
+    def __init__(self, first_hand):
         self.hand = first_hand
         self.info = [CardModel() for _ in range(5)]
 
@@ -27,16 +28,16 @@ class Agent:
                     self.info[index].cards[color] = [0] * 5
         if number is not None:
             for index, card in enumerate(self.hand):
-                for color_variant in colors:
-                    self.info[index].cards[color_variant] = [
-                        (
-                            int(card.number == number)
-                            * self.info[index].cards[color_variant][i]
-                        )
-                        for i in range(len(self.info[index].cards[color_variant]))
-                    ]
+                if card.number == number:
+                    for color_variant in colors:
+                        for i in range(5):
+                            if i != number - 1:
+                                self.info[index].cards[color_variant][i] = 0
+                else:
+                    for color_variant in colors:
+                        self.info[index].cards[color_variant][number - 1] = 0
 
-    def check_playable(self):
+    def check_playable(self, field_cards):
         """
         _summary_
             プレイ可能なカードがあるかどうかをチェックする
@@ -52,11 +53,11 @@ class Agent:
                     for color, numbers in possible_cards.items()
                     for number in numbers
                 ]
-            ).issubset(game.field_cards):
+            ).issubset(field_cards):
                 return index
         return None
 
-    def check_opponent_playable(self, opponent_hand):
+    def check_opponent_playable(self, opponent_hand, field_cards):
         """
         _summary_
             相手の手札に対してプレイ可能なカードがあるかどうかをチェックする
@@ -66,13 +67,13 @@ class Agent:
         """
         playable_cards = []
         for index, card in enumerate(opponent_hand):
-            if Card(card.color, card.number - 1) in game.field_cards:
+            if Card(card.color, card.number - 1) in field_cards:
                 playable_cards.append(True)
             else:
                 playable_cards.append(False)
         return playable_cards
 
-    def check_discardable(self):
+    def check_discardable(self, discardable_cards):
         """
         _summary_
             プレイ可能なカードがあるかどうかをチェックする
@@ -80,7 +81,6 @@ class Agent:
         Returns
             __type__ : int
         """
-        discardable_cards = game.get_discardable_cards()
         for index, card_model in enumerate(self.info):
             possible_cards = card_model.get_possible_cards()
             if set(
