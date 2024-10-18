@@ -104,7 +104,7 @@ def index(room_id, player_id):
         if opponent.check_playable(game.field_cards) is not None:
             index = opponent.check_playable(game.field_cards)
             card = opponent.hand[index]
-            game.add_history(f"{game.play(card)}{card.number}{card.color}{index}", 1)
+            game.add_history(game.play(card), 1)
             opponent.discard(index)
             opponent.add(game.deck.draw())
         elif opponent.check_discardable(game.get_discardable_cards()) is not None:
