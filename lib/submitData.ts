@@ -3,11 +3,14 @@ export const submitData = async (
   params: {
     room_id: string;
     player_id: string;
-  }
+  },
+  formData?: FormData
 ) => {
   event.preventDefault();
 
-  const formData = new FormData(event.currentTarget);
+  if (!formData) {
+    formData = new FormData(event.currentTarget);
+  }
   const submitter = (event.nativeEvent as SubmitEvent).submitter as
     | HTMLButtonElement
     | HTMLInputElement;

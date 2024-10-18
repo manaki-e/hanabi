@@ -41,9 +41,10 @@ export default function ActionSelect({
       return;
     }
     event.preventDefault();
+    const formData = new FormData(event.currentTarget as HTMLFormElement);
     setIsLoading(true);
     setTimeout(() => {
-      submitData(event, params);
+      submitData(event, params, formData);
       setIsLoading(false);
     }, (timeLeft - 1) * 1000);
   };
