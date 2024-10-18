@@ -71,6 +71,8 @@ export default function TeachSelect({
       <input type="hidden" name="form_id" value="hint" />
       <div className="flex flex-col gap-4">
         <Select
+          label=""
+          aria-label="ColorまたはNumberを選択"
           placeholder="ColorまたはNumberを選択"
           size="lg"
           variant="faded"
@@ -83,6 +85,8 @@ export default function TeachSelect({
         </Select>
         {selectedOption === "color" && (
           <Select
+            label=""
+            aria-label="Colorを選択"
             placeholder="Colorを選択"
             size="lg"
             variant="faded"
@@ -96,6 +100,8 @@ export default function TeachSelect({
         )}
         {selectedOption === "number" && (
           <Select
+            label=""
+            aria-label="Numberを選択"
             placeholder="Numberを選択"
             size="lg"
             variant="faded"

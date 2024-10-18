@@ -53,6 +53,8 @@ export default function ActionSelect({
     <form onSubmit={handleSubmit} className="flex flex-col gap-2 align-middle">
       <input type="hidden" name="form_id" value="action" />
       <Select
+        label=""
+        aria-label="カード番号を選択"
         placeholder="カード番号を選択"
         name="index"
         size="lg"
