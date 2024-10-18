@@ -103,7 +103,6 @@ def index(room_id, player_id):
         # * プレイ可能なカードを持っていればプレイする
         if opponent.check_playable(game.field_cards) is not None:
             index = opponent.check_playable(game.field_cards)
-            print(index)
             card = opponent.hand[index]
             game.add_history(f"{game.play(card)}{card.number}{card.color}{index}", 1)
             opponent.discard(index)
