@@ -16,7 +16,7 @@ export default function Timer({
   const timeLeft = useTimer({ disabled });
 
   useEffect(() => {
-    if (timeLeft <= 1) {
+    if (timeLeft == 0) {
       const formData = new FormData();
       if (teach_token === TEACH_TOKEN) {
         formData.append("form_id", "hint");
