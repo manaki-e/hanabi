@@ -3,7 +3,7 @@ from flask import jsonify
 from api.models.card import Card
 from api.models.deck import Deck
 from api.models.trash_table import TrashTable
-from api.core.config import colors, teach_token, mistake_token
+from api.core.config import colors, teach_token, mistake_token, card_numbers
 
 
 # * ゲームのクラス
