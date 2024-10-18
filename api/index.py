@@ -4,7 +4,7 @@ from api.hanabi import Game
 from api.models.player import Player
 from api.models.agent import Agent
 from dotenv import load_dotenv
-import os
+import os, random
 
 app = Flask(__name__)
 
@@ -101,13 +101,18 @@ def index(room_id, player_id):
 
     if isVsAgent and game.current_player == 1:
 
-        # * 残山札が0の場合
-        if len(game.deck.cards) == 0:
-            game.is_finished -= 1
-
         # * プレイ可能なカードを持っていればプレイする
         if opponent.check_playable(game.field_cards) is not None:
             index = opponent.check_playable(game.field_cards)
+            card = opponent.hand[index]
+            game.add_history(game.play(card), 1)
+            opponent.discard(index)
+            if len(game.deck.cards) > 0:
+                opponent.add(game.deck.draw())
+        # * 山札が0の場合はヒントを与えたり捨てたりせずににプレイする
+        elif len(game.deck.cards) == 0:
+            game.is_finished -= 1
+            index = random.randint(0, 4)
             card = opponent.hand[index]
             game.add_history(game.play(card), 1)
             opponent.discard(index)
