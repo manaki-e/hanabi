@@ -3,6 +3,7 @@
 import { useEffect } from "react";
 import { useTimer } from "./function/timer.hooks";
 import { TEACH_TOKEN } from "@/lib/constant";
+import { CircularProgress } from "@nextui-org/progress";
 
 export default function Timer({
   params,
@@ -40,14 +41,19 @@ export default function Timer({
     }
   }, [timeLeft]);
 
-  const formatTime = (seconds: number) => {
-    const remainingSeconds = seconds % 60;
-    return `${String(remainingSeconds).padStart(2, "0")}`;
-  };
-
   return (
-    <div className="aspect-square w-12 rounded-full border-3 bold text-2xl border-red-600 bg-red-100 m-2 flex justify-center items-center text-red-600">
-      {formatTime(timeLeft)}
-    </div>
+    <CircularProgress
+      size="lg"
+      value={timeLeft}
+      color={disabled ? "warning" : "danger"}
+      showValueLabel={true}
+      aria-label="Loading..."
+      formatOptions={{ style: "decimal" }}
+      maxValue={20}
+      minValue={0}
+      label=""
+      classNames={{ value: `text-lg ${disabled ? "text-warning" : "text-danger"}` }}
+      disableAnimation={false}
+    />
   );
 }
