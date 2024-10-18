@@ -31,6 +31,11 @@ export default function Timer({
         method: "POST",
         body: formData,
       });
+      if (teach_token === TEACH_TOKEN) {
+        alert("時間切れです！そのため、自動的にヒントを与えました。");
+      } else {
+        alert("時間切れです！そのため、自動的に一番左のカードを捨てました。");
+      }
       window.location.reload();
     }
   }, [timeLeft]);
