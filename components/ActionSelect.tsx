@@ -53,10 +53,10 @@ export default function ActionSelect({
     <form onSubmit={handleSubmit} className="flex flex-col gap-2 align-middle">
       <input type="hidden" name="form_id" value="action" />
       <Select
-        label="Index"
+        placeholder="カード番号を選択"
         name="index"
-        className="max-w-xs"
-        size="sm"
+        size="lg"
+        variant="faded"
         onChange={(e) => handleIndexChange(e.target.value)}
       >
         <SelectItem key={0}>1枚目</SelectItem>

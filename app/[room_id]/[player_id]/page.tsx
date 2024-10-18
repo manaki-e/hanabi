@@ -116,7 +116,7 @@ export default async function Page({ params }: { params: { room_id: string; play
             ))}
           </div>
         </div>
-        <div className="flex-1 flex justify-between flex-col">
+        <div className="flex-1 flex justify-between flex-col pr-4">
           <div className="my-4">
             <TeachSelect
               params={params}

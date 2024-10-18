@@ -71,21 +71,21 @@ export default function TeachSelect({
       <input type="hidden" name="form_id" value="hint" />
       <div className="flex flex-col gap-4">
         <Select
-          label="色または数字"
-          className="max-w-xs"
-          size="sm"
+          placeholder="ColorまたはNumberを選択"
+          size="lg"
+          variant="faded"
           onChange={(e) => handleSelectChange(e.target.value)}
           defaultSelectedKeys={selectedOption}
           name="teach"
         >
-          <SelectItem key="color">色</SelectItem>
-          <SelectItem key="number">数字</SelectItem>
+          <SelectItem key="color">Color</SelectItem>
+          <SelectItem key="number">Number</SelectItem>
         </Select>
         {selectedOption === "color" && (
           <Select
-            label="色"
-            className="max-w-xs"
-            size="sm"
+            placeholder="Colorを選択"
+            size="lg"
+            variant="faded"
             name="color"
             onChange={(e) => handleColorChange(e.target.value)}
           >
@@ -96,9 +96,9 @@ export default function TeachSelect({
         )}
         {selectedOption === "number" && (
           <Select
-            label="数字"
-            className="max-w-xs"
-            size="sm"
+            placeholder="Numberを選択"
+            size="lg"
+            variant="faded"
             name="number"
             onChange={(e) => handleNumberChange(e.target.value)}
           >
