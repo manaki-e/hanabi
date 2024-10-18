@@ -120,16 +120,12 @@ def index(room_id, player_id):
                     opponent.check_opponent_playable(player.hand, game.field_cards),
                     player.hand,
                 )
-                player.get_info(color=color, number=number)
-                game.add_history(
-                    f"{color or number}のカードについて、ヒントを伝えました", 1
-                )
             else:
                 color, number = opponent.teach_random_hint(player.hand)
-                player.get_info(color=color, number=number)
-                game.add_history(
-                    f"{color or number}のカードについて、ヒントを伝えました", 1
-                )
+            player.get_info(color=color, number=number)
+            game.add_history(
+                f"{color or number}のカードについて、ヒントを伝えました", 1
+            )
         else:
             index = opponent.random_discard()
             card = opponent.hand[index]
