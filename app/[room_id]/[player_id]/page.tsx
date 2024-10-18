@@ -46,7 +46,7 @@ export default async function Page({ params }: { params: { room_id: string; play
             <Slider
               color="primary"
               isDisabled
-              label="残山札"
+              label="残りの山札枚数"
               radius="md"
               step={1}
               maxValue={40}
@@ -58,7 +58,7 @@ export default async function Page({ params }: { params: { room_id: string; play
             <Slider
               color="primary"
               isDisabled
-              label="残Teachトークン"
+              label="残りのヒントトークン"
               radius="md"
               showSteps={true}
               step={1}
@@ -71,7 +71,7 @@ export default async function Page({ params }: { params: { room_id: string; play
             <Slider
               color="primary"
               isDisabled
-              label="残Missトークン"
+              label="残りのミストークン"
               radius="md"
               showSteps={true}
               step={1}
