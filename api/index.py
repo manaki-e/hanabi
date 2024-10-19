@@ -78,7 +78,11 @@ def index(room_id, player_id):
             # * 手札の更新
             player.discard(index)
             if len(game.deck.cards) > 0:
-                player.add(game.deck.draw())
+                new_card = game.deck.draw()
+                player.add(new_card)
+                if isVsAgent:
+                    for card_model in opponent.info:
+                        card_model.cards[new_card.color][new_card.number - 1] -= 1
 
         elif form_id == "hint":
             game.teach_token -= 1
