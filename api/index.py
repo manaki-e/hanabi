@@ -109,6 +109,9 @@ def index(room_id, player_id):
             opponent.discard(index)
             if len(game.deck.cards) > 0:
                 opponent.add(game.deck.draw())
+                opponent.update_first_info(
+                    game.trash_table, game.field_cards, player.hand
+                )
         # * 山札が0の場合はヒントを与えたり捨てたりせずににプレイする
         elif len(game.deck.cards) == 0:
             game.is_finished -= 1
@@ -124,6 +127,9 @@ def index(room_id, player_id):
             opponent.discard(index)
             if len(game.deck.cards) > 0:
                 opponent.add(game.deck.draw())
+                opponent.update_first_info(
+                    game.trash_table, game.field_cards, player.hand
+                )
         elif game.teach_token > 0:
             game.teach_token -= 1
             # * 相⼿がプレイ可能なカードを持っていたら、⾊または数字のヒントを与える
@@ -147,6 +153,9 @@ def index(room_id, player_id):
             opponent.discard(index)
             if len(game.deck.cards) > 0:
                 opponent.add(game.deck.draw())
+                opponent.update_first_info(
+                    game.trash_table, game.field_cards, player.hand
+                )
         game.switch_turn()
         return game.return_data(message, player, opponent)
 

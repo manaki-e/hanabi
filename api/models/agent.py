@@ -17,6 +17,18 @@ class Agent:
         self.hand.pop(index)
         self.info.pop(index)
 
+    def update_first_info(self, trash_table, field_cards, opponent_hand):
+        self.info[-1].cards = {
+            color: [
+                a - b for a, b in zip(self.info[-1].cards[color], trash_table.cards[color])
+            ]
+            for color in self.info[-1].cards
+        }
+        for card in field_cards:
+            self.info[-1].cards[card.color][card.number - 1] -= 1
+        for card in opponent_hand:
+            self.info[-1].cards[card.color][card.number - 1] -= 1
+
     def get_info(self, color=None, number=None):
         if color is not None:
             for index, card in enumerate(self.hand):
