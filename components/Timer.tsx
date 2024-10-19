@@ -9,20 +9,31 @@ export default function Timer({
   params,
   disabled,
   teach_token,
+  opponent_hand,
 }: {
   params: { room_id: string; player_id: string };
   disabled: boolean;
   teach_token: number;
+  opponent_hand: { color: string; number: number }[];
 }) {
   const timeLeft = useTimer({ disabled });
+
+  const uniqueColors = Array.from(new Set(opponent_hand.map((card) => card.color))).sort();
+  const uniqueNumbers = Array.from(new Set(opponent_hand.map((card) => card.number))).sort();
+
+  const hintTypes = Math.random() < 0.5 ? "color" : "number";
+  const hint =
+    hintTypes === "color"
+      ? uniqueColors[Math.floor(Math.random() * uniqueColors.length)]
+      : uniqueNumbers[Math.floor(Math.random() * uniqueNumbers.length)];
 
   useEffect(() => {
     if (timeLeft == 0) {
       const formData = new FormData();
       if (teach_token === TEACH_TOKEN) {
         formData.append("form_id", "hint");
-        formData.append("teach", "color");
-        formData.append("color", "red");
+        formData.append("teach", hintTypes);
+        formData.append(hintTypes, String(hint));
       } else {
         formData.append("form_id", "action");
         formData.append("index", "0");

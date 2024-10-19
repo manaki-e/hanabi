@@ -33,7 +33,12 @@ export default async function Page({ params }: { params: { room_id: string; play
           <Message message={dataset.message} isPlayer={isPlayer} />
         </div>
         {isTimer && (
-          <Timer disabled={!isPlayer} params={params} teach_token={dataset.teach_token} />
+          <Timer
+            disabled={!isPlayer}
+            params={params}
+            teach_token={dataset.teach_token}
+            opponent_hand={dataset.opponent_hand}
+          />
         )}
       </div>
 
