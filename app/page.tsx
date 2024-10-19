@@ -1,12 +1,12 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { Button } from "@nextui-org/button";
-import { Input } from "@nextui-org/input";
-import { useRouter } from "next/navigation";
+import { Button } from '@nextui-org/button';
+import { Input } from '@nextui-org/input';
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 
 export default function Page() {
-  const [roomId, setRoomId] = useState("");
+  const [roomId, setRoomId] = useState('');
   const router = useRouter();
 
   const handleButtonClick = () => {
@@ -19,20 +19,20 @@ export default function Page() {
 
   return (
     <div className="flex justify-center align-middle">
-      <div className="flex flex-col gap-20 justify-center align-middle w-40 my-40">
+      <div className="my-40 flex w-40 flex-col justify-center gap-20 align-middle">
         <Input
-          placeholder="RoomID"
-          onChange={(e) => setRoomId(e.target.value)}
-          variant="bordered"
           color="primary"
+          onChange={(e) => setRoomId(e.target.value)}
+          placeholder="RoomID"
           value={roomId}
+          variant="bordered"
         />
         <Button
-          variant="bordered"
           color="danger"
-          type="button"
-          onClick={handleButtonClick}
           isDisabled={isButtonDisabled}
+          onClick={handleButtonClick}
+          type="button"
+          variant="bordered"
         >
           部屋へ移動
         </Button>

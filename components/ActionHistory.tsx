@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import { ScrollShadow } from "@nextui-org/scroll-shadow";
+import { ScrollShadow } from '@nextui-org/scroll-shadow';
 
 export default function ActionHistory({
   params,
@@ -11,17 +11,17 @@ export default function ActionHistory({
 }) {
   return (
     <ScrollShadow className="h-full" offset={10}>
-      <ul className="text-xs py-4 leading-normal">
+      <ul className="py-4 text-xs leading-normal">
         {history
           .slice()
           .reverse()
           .map((action, index) => (
             <li key={index}>
               {action.player_id === Number(params.player_id) % 2
-                ? "自分"
+                ? '自分'
                 : Number(params.player_id) === 2
-                ? "AI"
-                : "相手"}
+                  ? 'AI'
+                  : '相手'}
               ：{action.message}
             </li>
           ))}

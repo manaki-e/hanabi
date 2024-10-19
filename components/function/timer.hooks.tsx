@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 
 export const useTimer = ({ disabled }: { disabled: boolean }) => {
   const [timeLeft, setTimeLeft] = useState(20);
