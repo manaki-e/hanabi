@@ -1,8 +1,16 @@
 {
-  "editor.defaultFormatter": "ms-python.black-formatter",
+  "editor.defaultFormatter": null,
   "editor.formatOnSave": true,
+  "files.autoSave": "afterDelay",
   "[python]": {
+    "editor.defaultFormatter": "ms-python.black-formatter",
     "editor.tabSize": 4,
     "editor.insertSpaces": true
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
   }
 }
