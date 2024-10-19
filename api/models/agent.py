@@ -25,7 +25,8 @@ class Agent:
             for color in self.info[-1].cards
         }
         for card in field_cards:
-            self.info[-1].cards[card.color][card.number - 1] -= 1
+            for number in range(card.number):
+                self.info[-1].cards[card.color][card.number] -= 1
         for card in opponent_hand:
             self.info[-1].cards[card.color][card.number - 1] -= 1
 
