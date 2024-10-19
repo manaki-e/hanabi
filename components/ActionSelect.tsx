@@ -21,19 +21,15 @@ export default function ActionSelect({
   isPlayer: boolean;
   isTimer: boolean;
 }) {
-  // State for selected index
   const [selectedIndex, setSelectedIndex] = useState('');
-
   const [isLoading, setIsLoading] = useState(false);
 
   const timeLeft = useTimer({ disabled: !isTimer });
 
-  // Handle the change of the select box
   const handleIndexChange = (value: string) => {
     setSelectedIndex(value);
   };
 
-  // Determine if the button should be disabled
   const isButtonDisabled = selectedIndex === '' || !isPlayer;
   const isTrashButtonDisabled = isButtonDisabled || teach_token === TEACH_TOKEN;
 
