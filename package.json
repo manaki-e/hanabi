@@ -8,8 +8,7 @@
     "dev": "concurrently \"pnpm run next-dev\" \"pnpm run flask-dev\"",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "lint:fix": "next lint --fix",
+    "lint": "next lint --fix",
     "fmt": "prettier --write ."
   },
   "dependencies": {
