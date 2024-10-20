@@ -34,3 +34,13 @@ class CardModel:
         """
         if self.cards[color][index] > 0:
             self.cards[color][index] -= 1
+
+    def count_zero(self):
+        """
+        _summary_
+            ゼロのカードの数をカウントする
+
+        Returns:
+            _type_: int
+        """
+        return sum([x == 0 for values in self.cards.values() for x in values])

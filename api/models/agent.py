@@ -20,7 +20,8 @@ class Agent:
     def update_first_info(self, trash_table, field_cards, opponent_hand):
         self.info[-1].cards = {
             color: [
-                a - b for a, b in zip(self.info[-1].cards[color], trash_table.cards[color])
+                a - b
+                for a, b in zip(self.info[-1].cards[color], trash_table.cards[color])
             ]
             for color in self.info[-1].cards
         }
@@ -161,12 +162,10 @@ class Agent:
     def random_discard(self):
         """
         _summary_
-            ヒントの与えられていないランダムなカードを捨てる
+            与えられたヒントが最も少ないカードを捨てる
 
         Returns
             __type__ : int
         """
-        for index, card_model in enumerate(self.info):
-            if card_model == CardModel():
-                return index
-        return random.choice(range(len(self.hand)))
+        number_of_zeros = [card_model.count_zero() for card_model in self.info]
+        return number_of_zeros.index(min(number_of_zeros))
