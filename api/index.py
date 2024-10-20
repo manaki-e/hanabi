@@ -116,6 +116,8 @@ def index(room_id, player_id):
                 opponent.update_first_info(
                     game.trash_table, game.field_cards, player.hand
                 )
+            if len(game.deck.cards) == 0:
+                game.is_finished -= 1
         # * 山札が0の場合はヒントを与えたり捨てたりせずににプレイする
         elif len(game.deck.cards) == 0:
             game.is_finished -= 1
