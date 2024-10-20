@@ -26,9 +26,9 @@ class Agent:
         }
         for card in field_cards:
             for number in range(card.number):
-                self.info[-1].cards[card.color][card.number] -= 1
+                self.info[-1].decrement_card(card.color, number)
         for card in opponent_hand:
-            self.info[-1].cards[card.color][card.number - 1] -= 1
+            self.info[-1].decrement_card(card.color, card.number - 1)
 
     def get_info(self, color=None, number=None):
         if color is not None:

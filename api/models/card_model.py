@@ -24,3 +24,13 @@ class CardModel:
             for color, values in self.cards.items()
             if any(x != 0 for x in values)
         }
+
+    def decrement_card(self, color, index):
+        """
+        指定したカードの数を1減らす。ただし、負の値にはならないようにする。
+
+        Returns:
+            _type_: None
+        """
+        if self.cards[color][index] > 0:
+            self.cards[color][index] -= 1

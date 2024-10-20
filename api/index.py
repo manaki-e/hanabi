@@ -82,7 +82,7 @@ def index(room_id, player_id):
                 player.add(new_card)
                 if isVsAgent:
                     for card_model in opponent.info:
-                        card_model.cards[new_card.color][new_card.number - 1] -= 1
+                        card_model.decrement_card(new_card.color, new_card.number - 1)
 
         elif form_id == "hint":
             game.teach_token -= 1
@@ -135,20 +135,36 @@ def index(room_id, player_id):
                     game.trash_table, game.field_cards, player.hand
                 )
         elif game.teach_token > 0:
-            game.teach_token -= 1
             # * 相⼿がプレイ可能なカードを持っていたら、⾊または数字のヒントを与える
             if any(opponent.check_opponent_playable(player.hand, game.field_cards)):
+                game.teach_token -= 1
                 color, number = opponent.teach_hint(
                     opponent.check_opponent_playable(player.hand, game.field_cards),
                     player.hand,
                 )
+                player.get_info(color=color, number=number)
+                game.add_history(
+                    f"{color or number}のカードについて、ヒントを伝えました", 1
+                )
+            # * 相⼿がプレイ可能なカードを持っていないかつ、残りのヒントトークンが少なければ、ヒントをもらっていないカードからランダムに捨てる
+            elif game.teach_token < 3:
+                index = opponent.random_discard()
+                card = opponent.hand[index]
+                game.add_history(game.trash(card), 1)
+                opponent.discard(index)
+                if len(game.deck.cards) > 0:
+                    opponent.add(game.deck.draw())
+                    opponent.update_first_info(
+                        game.trash_table, game.field_cards, player.hand
+                    )
             # * 相⼿がプレイ可能なカードを持っていなかったら、与えてない情報の中からランダムにヒントを与える
             else:
+                game.teach_token -= 1
                 color, number = opponent.teach_random_hint(player.hand)
-            player.get_info(color=color, number=number)
-            game.add_history(
-                f"{color or number}のカードについて、ヒントを伝えました", 1
-            )
+                player.get_info(color=color, number=number)
+                game.add_history(
+                    f"{color or number}のカードについて、ヒントを伝えました", 1
+                )
         # * ヒントトークンが残っていなかったら、⾃分のカードからランダムに1枚捨てる
         else:
             index = opponent.random_discard()
