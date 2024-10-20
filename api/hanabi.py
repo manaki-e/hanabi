@@ -69,6 +69,7 @@ class Game:
                 "history": self.history,
                 "trash_table": self.trash_table.to_dict(),
                 "current_player": self.current_player,
+                "is_finished": self.check_finished(),
             }
         )
 

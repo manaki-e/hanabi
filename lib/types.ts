@@ -22,4 +22,5 @@ export type Dataset = {
   }[];
   trash_table: Record<Color, number[]>;
   current_player: number;
+  is_finished: boolean;
 };
