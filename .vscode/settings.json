@@ -1,6 +1,9 @@
 {
   "editor.defaultFormatter": null,
   "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "always"
+  },
   "files.autoSave": "afterDelay",
   "[python]": {
     "editor.defaultFormatter": "ms-python.black-formatter",
