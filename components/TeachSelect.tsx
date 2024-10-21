@@ -68,7 +68,7 @@ export default function TeachSelect({
     setIsLoading(true);
     setTimeout(
       () => {
-        submitData(event, params, formData);
+        submitData(event, params, formData, elapsed_time);
         setIsLoading(false);
       },
       (timeLeft - 1) * 1000,
