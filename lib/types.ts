@@ -8,7 +8,6 @@ type Card = {
 };
 
 export type Dataset = {
-  message: string;
   teach_token: number;
   mistake_token: number;
   field_cards: Card[];

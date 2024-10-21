@@ -55,10 +55,9 @@ class Game:
     def add_history(self, message, player_id):
         self.history.append({"message": message, "player_id": player_id})
 
-    def return_data(self, message, player, opponent):
+    def return_data(self, player, opponent):
         return jsonify(
             {
-                "message": message,
                 "teach_token": self.teach_token,
                 "mistake_token": self.mistake_token,
                 "field_cards": [card.to_dict() for card in self.field_cards],

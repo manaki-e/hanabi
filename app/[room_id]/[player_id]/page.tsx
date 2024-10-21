@@ -29,7 +29,7 @@ export default async function Page({ params }: { params: { room_id: string; play
 
       <div className="mx-8 flex gap-8">
         <div className="flex h-16 flex-1 flex-col justify-center align-middle">
-          <Message isPlayer={isPlayer} message={dataset.message} />
+          <Message isFinished={dataset.is_finished} isPlayer={isPlayer} />
         </div>
         {isTimer && (
           <Timer

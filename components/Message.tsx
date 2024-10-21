@@ -1,4 +1,10 @@
-export default function Message({ message, isPlayer }: { message: string; isPlayer: boolean }) {
+export default function Message({ isPlayer, isFinished }: { isPlayer: boolean; isFinished: boolean }) {
+  const message = isFinished
+    ? 'ゲームが終了しました。現在の合計点数を確認してください。'
+    : isPlayer
+      ? 'あなたのターンです。ヒントを与えるか、カードを場に出すまたは捨てることができます。'
+      : '相手のターンを待っています。';
+
   if (isPlayer) {
     return (
       <div className="flex rounded-md border-2 border-blue-500 bg-blue-50 p-4 text-sm text-blue-500">

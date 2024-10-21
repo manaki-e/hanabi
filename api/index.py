@@ -46,14 +46,7 @@ def index(room_id, player_id):
 
     #  * ゲームが終了している場合
     if game.check_finished():
-        message = "ゲームが終了しました。現在の合計点数を確認してください。"
-        return game.return_data(message, player, opponent)
-
-    message = (
-        player_id == game.current_player
-        and "あなたのターンです。ヒントを与えるか、カードを場に出すまたは捨てることができます。"
-        or "相手のターンを待っています。"
-    )
+        return game.return_data(player, opponent)
 
     # * ゲームの実行処理
     if request.method == "POST":
@@ -101,7 +94,7 @@ def index(room_id, player_id):
 
         # * ターンの切り替え
         game.switch_turn()
-        return game.return_data(message, player, opponent)
+        return game.return_data(player, opponent)
 
     if isVsAgent and game.current_player == 1:
 
@@ -179,9 +172,9 @@ def index(room_id, player_id):
                     game.trash_table, game.field_cards, player.hand
                 )
         game.switch_turn()
-        return game.return_data(message, player, opponent)
+        return game.return_data(player, opponent)
 
-    return game.return_data(message, player, opponent)
+    return game.return_data(player, opponent)
 
 
 if __name__ == "__main__":
