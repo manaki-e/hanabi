@@ -26,6 +26,9 @@ def index(room_id, player_id):
     room_id = int(room_id)
     player_id = int(player_id) % 2
 
+    # * クエリパラメータの取得
+    elapsed_time = request.args.get("time")
+
     # * ゲームの取得または新規作成
     if room_id not in games:
         games[room_id] = Game()

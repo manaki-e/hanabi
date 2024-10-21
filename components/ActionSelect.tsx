@@ -6,6 +6,7 @@ import { Select, SelectItem } from '@nextui-org/select';
 import { useState } from 'react';
 
 import { TEACH_TOKEN } from '@/lib/constant';
+import { getCurrentTime } from '@/lib/getCurrentTime';
 import { submitData } from '@/lib/submitData';
 
 import { useTimer } from './function/timer.hooks';
@@ -23,6 +24,7 @@ export default function ActionSelect({
 }) {
   const [selectedIndex, setSelectedIndex] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [startTime] = useState(getCurrentTime());
 
   const timeLeft = useTimer({ disabled: !isTimer });
 
@@ -34,8 +36,9 @@ export default function ActionSelect({
   const isTrashButtonDisabled = isButtonDisabled || teach_token === TEACH_TOKEN;
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    const elapsed_time = getCurrentTime() - startTime;
     if (!isTimer) {
-      submitData(event, params);
+      submitData(event, params, undefined, elapsed_time);
       return;
     }
     event.preventDefault();

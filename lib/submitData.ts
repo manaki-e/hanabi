@@ -5,6 +5,7 @@ export const submitData = async (
     player_id: string;
   },
   formData?: FormData,
+  time?: number,
 ) => {
   event.preventDefault();
 
@@ -17,10 +18,13 @@ export const submitData = async (
     formData.append('act', submitter.value);
   }
 
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/${params.room_id}/${params.player_id}`, {
-    method: 'POST',
-    body: formData,
-  });
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/${params.room_id}/${params.player_id}?time=${time}`,
+    {
+      method: 'POST',
+      body: formData,
+    },
+  );
 
   if (res.ok) {
     window.location.reload();
