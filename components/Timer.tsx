@@ -30,7 +30,7 @@ export default function Timer({
       : uniqueNumbers[Math.floor(Math.random() * uniqueNumbers.length)];
 
   useEffect(() => {
-    if (timeLeft == 0) {
+    if (timeLeft < 0) {
       const formData = new FormData();
       if (teach_token === TEACH_TOKEN) {
         formData.append('form_id', 'hint');
