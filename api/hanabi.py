@@ -37,7 +37,7 @@ class Game:
     def play(self, card):
         for field_card in self.field_cards:
             if field_card.color == card.color:
-                if abs(card.number - field_card.number) == 1:
+                if card.number == field_card.number + 1:
                     field_card.number = card.number
                     if card.number == 5:
                         self.teach_token += 1
