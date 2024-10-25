@@ -21,7 +21,7 @@ export default async function Page({ params }: { params: { room_id: string; play
   const dataset: Dataset = (await data.json()) as Dataset;
 
   const isPlayer = dataset.current_player === Number(params.player_id) % 2;
-  const isTimer = Number(params.room_id) % 2 === 1;
+  const isTimer = Number(params.room_id) % 2 === 1 && Number(params.player_id) !== 2;
 
   return (
     <>
