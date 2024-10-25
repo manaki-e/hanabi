@@ -58,21 +58,20 @@ export default function TeachSelect({
     (selectedOption === 'number' && selectedNumber === '');
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    const elapsed_time = getCurrentTime() - startTime;
-    if (!isTimer) {
-      submitData(event, params, undefined, elapsed_time);
-      return;
-    }
     event.preventDefault();
-    const formData = new FormData(event.currentTarget as HTMLFormElement);
     setIsLoading(true);
-    setTimeout(
-      () => {
-        submitData(event, params, formData, elapsed_time);
-        setIsLoading(false);
-      },
-      (timeLeft - 1) * 1000,
-    );
+    const elapsed_time = getCurrentTime() - startTime;
+    if (isTimer) {
+      const formData = new FormData(event.currentTarget as HTMLFormElement);
+      setTimeout(
+        () => {
+          submitData(event, params, formData, elapsed_time).finally(() => setIsLoading(false));
+        },
+        (timeLeft - 1) * 1000,
+      );
+    } else {
+      submitData(event, params, undefined, elapsed_time).finally(() => setIsLoading(false));
+    }
   };
 
   return (
