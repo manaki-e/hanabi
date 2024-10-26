@@ -12,12 +12,31 @@ load_dotenv()
 APP_URL = os.getenv("APP_URL")
 CORS(app, resources={r"/*": {"origins": APP_URL}})
 
-games = {}
-players = {}
+games = {i: Game() for i in range(200)}
+players = {
+    i: {
+        0: Player([games[i].deck.draw() for _ in range(5)]),
+        1: (Player if i < 100 else Agent)([games[i].deck.draw() for _ in range(5)]),
+    }
+    for i in range(200)
+}
 
 
-@app.route("/api/<room_id>/<player_id>", methods=["GET", "POST"])
-def index(room_id, player_id):
+@app.route("/api/rooms", methods=["GET"])
+def rooms():
+    return jsonify(
+        [
+            {
+                "room_id": i,
+                "is_finished": games[i].check_finished(),
+            }
+            for i in range(200)
+        ]
+    )
+
+
+@app.route("/api/<room_id>/<player_id>", methods=["GET"])
+def get_info(room_id, player_id):
 
     # * VSエージェントまたはVS人間
     isVsAgent = int(player_id) == 2
@@ -29,74 +48,12 @@ def index(room_id, player_id):
     # * クエリパラメータの取得
     elapsed_time = request.args.get("time")
 
-    # * ゲームの取得または新規作成
-    if room_id not in games:
-        games[room_id] = Game()
-        if isVsAgent:
-            players[room_id] = {
-                0: Player([games[room_id].deck.draw() for _ in range(5)]),
-                1: Agent([games[room_id].deck.draw() for _ in range(5)]),
-            }
-        else:
-            players[room_id] = {
-                0: Player([games[room_id].deck.draw() for _ in range(5)]),
-                1: Player([games[room_id].deck.draw() for _ in range(5)]),
-            }
-
     game = games[room_id]
     player = players[room_id][player_id]
     opponent = players[room_id][1 - player_id]
 
     #  * ゲームが終了している場合
     if game.check_finished():
-        return game.return_data(player, opponent)
-
-    # * ゲームの実行処理
-    if request.method == "POST":
-
-        # * 残山札が0の場合
-        if len(game.deck.cards) == 0:
-            game.is_finished -= 1
-
-        form_id = request.form.get("form_id")
-
-        if form_id == "action":
-            index = int(request.form.get("index"))
-            action = request.form.get("act")
-            card = player.hand[index]
-
-            # * アクション（プレイ / 捨てる）別の行動
-            if action == "play":
-                game.add_history(game.play(card), player_id)
-            elif action == "trash":
-                game.add_history(game.trash(card), player_id)
-
-            # * 手札の更新
-            player.discard(index)
-            if len(game.deck.cards) > 0:
-                new_card = game.deck.draw()
-                player.add(new_card)
-                if isVsAgent:
-                    for card_model in opponent.info:
-                        card_model.decrement_card(new_card.color, new_card.number - 1)
-
-        elif form_id == "hint":
-            game.teach_token -= 1
-            if request.form.get("teach") == "color":
-                color = request.form.get("color")
-                opponent.get_info(color=color)
-                game.add_history(
-                    f"{color}のカードについて、ヒントを伝えました", player_id
-                )
-            else:
-                number = int(request.form.get("number"))
-                opponent.get_info(number=number)
-                game.add_history(
-                    f"{number}のカードについて、ヒントを伝えました", player_id
-                )
-
-        # * ターンの切り替え
-        game.switch_turn()
         return game.return_data(player, opponent)
 
     if isVsAgent and game.current_player == 1:
@@ -177,6 +134,69 @@ def index(room_id, player_id):
         game.switch_turn()
         return game.return_data(player, opponent)
 
+    return game.return_data(player, opponent)
+
+
+@app.route("/api/<room_id>/<player_id>", methods=["POST"])
+def post_info(room_id, player_id):
+
+    # * VSエージェントまたはVS人間
+    isVsAgent = int(player_id) == 2
+
+    # * ルーティング変数の取得
+    room_id = int(room_id)
+    player_id = int(player_id) % 2
+
+    # * クエリパラメータの取得
+    elapsed_time = request.args.get("time")
+
+    game = games[room_id]
+    player = players[room_id][player_id]
+    opponent = players[room_id][1 - player_id]
+
+    #  * ゲームが終了している場合
+    if game.check_finished():
+        return game.return_data(player, opponent)
+
+    # * 残山札が0の場合
+    if len(game.deck.cards) == 0:
+        game.is_finished -= 1
+
+    form_id = request.form.get("form_id")
+
+    if form_id == "action":
+        index = int(request.form.get("index"))
+        action = request.form.get("act")
+        card = player.hand[index]
+
+        # * アクション（プレイ / 捨てる）別の行動
+        if action == "play":
+            game.add_history(game.play(card), player_id)
+        elif action == "trash":
+            game.add_history(game.trash(card), player_id)
+
+        # * 手札の更新
+        player.discard(index)
+        if len(game.deck.cards) > 0:
+            new_card = game.deck.draw()
+            player.add(new_card)
+            if isVsAgent:
+                for card_model in opponent.info:
+                    card_model.decrement_card(new_card.color, new_card.number - 1)
+
+    elif form_id == "hint":
+        game.teach_token -= 1
+        if request.form.get("teach") == "color":
+            color = request.form.get("color")
+            opponent.get_info(color=color)
+            game.add_history(f"{color}のカードについて、ヒントを伝えました", player_id)
+        else:
+            number = int(request.form.get("number"))
+            opponent.get_info(number=number)
+            game.add_history(f"{number}のカードについて、ヒントを伝えました", player_id)
+
+    # * ターンの切り替え
+    game.switch_turn()
     return game.return_data(player, opponent)
 
 
