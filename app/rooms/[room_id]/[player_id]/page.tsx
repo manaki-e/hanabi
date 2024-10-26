@@ -8,6 +8,7 @@ import Message from '@/components/Message';
 import TeachSelect from '@/components/TeachSelect';
 import Timer from '@/components/Timer';
 import TrashTable from '@/components/TrashTable';
+import AgentAction from '@/components/function/AgentAction';
 import AutoReload from '@/components/function/AutoReload';
 
 import { MISS_TOKEN, TEACH_TOKEN } from '@/lib/constant';
@@ -22,7 +23,9 @@ export default async function Page({ params }: { params: { room_id: string; play
 
   return (
     <>
-      {!isPlayer && !dataset.is_finished && <AutoReload />}
+      {!isPlayer &&
+        !dataset.is_finished &&
+        (params.player_id !== '2' ? <AutoReload /> : <AgentAction params={params} />)}
 
       <div className="mx-8 flex gap-8">
         <div className="flex h-16 flex-1 flex-col justify-center align-middle">
