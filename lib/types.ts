@@ -2,6 +2,11 @@ export type Color = 'red' | 'blue' | 'green' | 'yellow' | 'white';
 
 export type Number = 0 | 1 | 2 | 3 | 4 | 5;
 
+export type Rooms = {
+  room_id: number;
+  is_finished: boolean;
+}[];
+
 type Card = {
   color: Color;
   number: Number;
