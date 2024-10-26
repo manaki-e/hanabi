@@ -18,7 +18,7 @@ export default function RoomList({ rooms }: { rooms: Rooms }) {
           <Button
             as={Link}
             color="primary"
-            href={`/${room.room_id}/0`}
+            href={`/rooms/${room.room_id}/0`}
             isDisabled={room.is_finished}
             key={room.room_id}
             size="lg"
@@ -38,7 +38,7 @@ export default function RoomList({ rooms }: { rooms: Rooms }) {
           <Button
             as={Link}
             color="danger"
-            href={`/${room.room_id}/1`}
+            href={`/rooms/${room.room_id}/1`}
             isDisabled={room.is_finished}
             key={room.room_id}
             size="lg"
@@ -54,7 +54,7 @@ export default function RoomList({ rooms }: { rooms: Rooms }) {
           <Button
             as={Link}
             color="warning"
-            href={`/${room.room_id}/2`}
+            href={`/rooms/${room.room_id}/2`}
             isDisabled={room.is_finished}
             key={room.room_id}
             size="lg"
