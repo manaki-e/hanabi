@@ -12,11 +12,14 @@ import AgentAction from '@/components/function/AgentAction';
 import AutoReload from '@/components/function/AutoReload';
 
 import { MISS_TOKEN, TEACH_TOKEN } from '@/lib/constant';
-import { getGameData } from '@/lib/getData';
-import { Color } from '@/lib/types';
+import { Color, Dataset } from '@/lib/types';
 
 export default async function Page({ params }: { params: { room_id: string; player_id: string } }) {
-  const dataset = await getGameData(params.room_id, params.player_id);
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/${params.room_id}/${params.player_id}`, {
+    method: 'GET',
+    cache: 'no-cache',
+  });
+  const dataset = (await res.json()) as Dataset;
 
   const isPlayer = dataset.current_player === Number(params.player_id) % 2;
   const isTimer = Number(params.room_id) % 2 === 1 && Number(params.player_id) !== 2;
