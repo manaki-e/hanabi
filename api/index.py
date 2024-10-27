@@ -12,7 +12,8 @@ load_dotenv()
 APP_URL = os.getenv("APP_URL")
 CORS(app, resources={r"/*": {"origins": APP_URL}})
 
-games = {i: Game() for i in range(200)}
+games = None
+games = {i: Game() for i in range(200)} if games is None else games
 players = {
     i: {
         0: Player([games[i].deck.draw() for _ in range(5)]),
@@ -228,4 +229,4 @@ def agent_action(room_id, player_id):
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run()
