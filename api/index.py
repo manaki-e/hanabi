@@ -153,6 +153,10 @@ def agent_action(room_id, player_id):
     if game.current_player != 1:
         return Response(status=200)
 
+    # * 残山札が0の場合
+    if len(game.deck.cards) == 0:
+        game.is_finished -= 1
+
     # * エージェントの行動
     thinking_time = 5
     # * プレイ可能なカードを持っていればプレイする
@@ -164,11 +168,8 @@ def agent_action(room_id, player_id):
         if len(game.deck.cards) > 0:
             opponent.add(game.deck.draw())
             opponent.update_first_info(game.trash_table, game.field_cards, player.hand)
-        if len(game.deck.cards) == 0:
-            game.is_finished -= 1
     # * 山札が0の場合はヒントを与えたり捨てたりせずににプレイする
     elif len(game.deck.cards) == 0:
-        game.is_finished -= 1
         index = random.randint(0, 4)
         card = opponent.hand[index]
         game.add_history(game.play(card), 1)
