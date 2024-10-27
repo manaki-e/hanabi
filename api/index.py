@@ -22,9 +22,7 @@ def rooms():
         [
             {
                 "room_id": i,
-                "is_finished": (
-                    games[i].check_finished() if i in games else False
-                ),
+                "is_finished": (games[i].check_finished() if i in games else False),
             }
             for i in range(200)
         ]
@@ -33,6 +31,8 @@ def rooms():
 
 @app.route("/api/<room_id>/<player_id>", methods=["GET"])
 def get_info(room_id, player_id):
+
+    global games, players
 
     # * VSエージェントまたはVS人間
     isVsAgent = int(player_id) == 2
@@ -71,6 +71,8 @@ def get_info(room_id, player_id):
 
 @app.route("/api/<room_id>/<player_id>", methods=["POST"])
 def post_info(room_id, player_id):
+
+    global games, players
 
     # * VSエージェントまたはVS人間
     isVsAgent = int(player_id) == 2
@@ -138,6 +140,8 @@ def post_info(room_id, player_id):
 
 @app.route("/api/<room_id>/<player_id>/agent", methods=["GET"])
 def agent_action(room_id, player_id):
+
+    global games, players
 
     # * VSエージェントまたはVS人間
     isVsAgent = int(player_id) == 2
