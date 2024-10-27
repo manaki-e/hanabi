@@ -12,15 +12,8 @@ load_dotenv()
 APP_URL = os.getenv("APP_URL")
 CORS(app, resources={r"/*": {"origins": APP_URL}})
 
-games = None
-games = {i: Game() for i in range(200)} if games is None else games
-players = {
-    i: {
-        0: Player([games[i].deck.draw() for _ in range(5)]),
-        1: (Player if i < 100 else Agent)([games[i].deck.draw() for _ in range(5)]),
-    }
-    for i in range(200)
-}
+games = {}
+players = {}
 
 
 @app.route("/api/rooms", methods=["GET"])
@@ -29,7 +22,9 @@ def rooms():
         [
             {
                 "room_id": i,
-                "is_finished": games[i].check_finished(),
+                "is_finished": (
+                    games[i].check_finished() if i in games else False
+                ),
             }
             for i in range(200)
         ]
@@ -48,6 +43,20 @@ def get_info(room_id, player_id):
 
     # * クエリパラメータの取得
     elapsed_time = request.args.get("time")
+
+    # * ゲームの取得または新規作成
+    if room_id not in games:
+        games[room_id] = Game()
+        if isVsAgent:
+            players[room_id] = {
+                0: Player([games[room_id].deck.draw() for _ in range(5)]),
+                1: Agent([games[room_id].deck.draw() for _ in range(5)]),
+            }
+        else:
+            players[room_id] = {
+                0: Player([games[room_id].deck.draw() for _ in range(5)]),
+                1: Player([games[room_id].deck.draw() for _ in range(5)]),
+            }
 
     game = games[room_id]
     player = players[room_id][player_id]
