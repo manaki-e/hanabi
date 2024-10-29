@@ -1,5 +1,4 @@
-import { Divider } from '@nextui-org/divider';
-import { Slider } from '@nextui-org/slider';
+import { CircularProgress } from '@nextui-org/progress';
 
 import ActionHistory from '@/components/ActionHistory';
 import ActionSelect from '@/components/ActionSelect';
@@ -47,57 +46,67 @@ export default async function Page({ params }: { params: Promise<{ room_id: stri
       </div>
 
       <div className="flex size-full justify-between gap-4" style={{ height: `calc(100% - 65px)` }}>
-        <div className="flex flex-1 flex-col justify-between p-4">
-          <div className="">
-            <Slider
-              className="max-w-md"
-              color="primary"
-              defaultValue={dataset.remaining_cards}
-              isDisabled
+        <div className="flex w-1/4 flex-col justify-between p-4">
+          <div className="flex flex-wrap justify-center gap-8">
+            <CircularProgress
+              classNames={{
+                svg: 'w-28 h-28 drop-shadow-md',
+                indicator: 'stroke-primary',
+                track: 'stroke-white/10',
+                value: 'text-xl font-semibold text-primary',
+              }}
+              formatOptions={{ style: 'decimal' }}
               label="残りの山札枚数"
-              maxValue={40}
+              maxValue={25}
               minValue={0}
-              radius="md"
-              step={1}
+              showValueLabel={true}
+              strokeWidth={3}
+              value={dataset.remaining_cards}
             />
-            <Divider className="my-4" />
-            <Slider
-              className="max-w-md"
-              color="primary"
-              defaultValue={dataset.teach_token}
-              isDisabled
-              label="残りのヒントトークン"
+            <CircularProgress
+              classNames={{
+                svg: 'w-28 h-28 drop-shadow-md',
+                indicator: 'stroke-primary',
+                track: 'stroke-white/10',
+                value: 'text-xl font-semibold text-primary',
+              }}
+              formatOptions={{ style: 'decimal' }}
+              label="ヒントトークン"
               maxValue={TEACH_TOKEN}
               minValue={0}
-              radius="md"
-              showSteps={true}
-              step={1}
+              showValueLabel={true}
+              strokeWidth={3}
+              value={dataset.teach_token}
             />
-            <Divider className="my-4" />
-            <Slider
-              className="max-w-md"
-              color="primary"
-              defaultValue={dataset.mistake_token}
-              isDisabled
-              label="残りのミストークン"
+            <CircularProgress
+              classNames={{
+                svg: 'w-28 h-28 drop-shadow-md',
+                indicator: 'stroke-danger',
+                track: 'stroke-white/10',
+                value: 'text-xl font-semibold text-danger',
+              }}
+              formatOptions={{ style: 'decimal' }}
+              label="ミストークン"
               maxValue={MISS_TOKEN}
               minValue={0}
-              radius="md"
-              showSteps={true}
-              step={1}
+              showValueLabel={true}
+              strokeWidth={3}
+              value={dataset.mistake_token}
             />
-            <Divider className="my-4" />
-            <Slider
-              className="max-w-md"
-              color="primary"
-              defaultValue={dataset.field_cards.reduce((sum: number, card: { number: number }) => sum + card.number, 0)}
-              isDisabled
+            <CircularProgress
+              classNames={{
+                svg: 'w-28 h-28 drop-shadow-md',
+                indicator: 'stroke-success',
+                track: 'stroke-white/10',
+                value: 'text-xl font-semibold text-success',
+              }}
+              formatOptions={{ style: 'decimal' }}
               label="現在の合計点数"
               maxValue={25}
               minValue={0}
-              radius="md"
-              showSteps={true}
-              step={1}
+              showValueLabel={true}
+              strokeWidth={3}
+              value={dataset.field_cards.reduce((sum: number, card: { number: number }) => sum + card.number, 0)}
             />
           </div>
           <TrashTable trash_table={dataset.trash_table} />
@@ -119,7 +128,7 @@ export default async function Page({ params }: { params: Promise<{ room_id: stri
             ))}
           </div>
         </div>
-        <div className="flex flex-1 flex-col justify-between pr-4">
+        <div className="flex w-1/4 flex-col justify-between p-4">
           <div className="my-4">
             <TeachSelect
               isPlayer={isPlayer}

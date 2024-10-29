@@ -58,16 +58,17 @@ export default function Timer({
 
   return (
     <CircularProgress
-      aria-label="Loading..."
-      classNames={{ value: `text-lg ${disabled ? 'text-warning' : 'text-danger'}` }}
-      color={disabled ? 'warning' : 'danger'}
-      disableAnimation={false}
+      classNames={{
+        svg: 'w-16 h-16 drop-shadow-md',
+        indicator: `${disabled ? 'stroke-warning' : 'stroke-danger'}`,
+        track: 'stroke-white/10',
+        value: `text-2xl font-semibold ${disabled ? 'text-warning' : 'text-danger'}`,
+      }}
       formatOptions={{ style: 'decimal' }}
-      label=""
       maxValue={20}
       minValue={0}
       showValueLabel={true}
-      size="lg"
+      strokeWidth={3}
       value={timeLeft}
     />
   );
