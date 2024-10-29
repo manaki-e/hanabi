@@ -8,12 +8,14 @@ import { TEACH_TOKEN } from '@/lib/constant';
 import { useTimer } from './function/timer.hooks';
 
 export default function Timer({
-  params,
+  room_id,
+  player_id,
   disabled,
   teach_token,
   opponent_hand,
 }: {
-  params: { room_id: string; player_id: string };
+  room_id: string;
+  player_id: string;
   disabled: boolean;
   teach_token: number;
   opponent_hand: { color: string; number: number }[];
@@ -41,7 +43,7 @@ export default function Timer({
         formData.append('index', '0');
         formData.append('act', 'trash');
       }
-      fetch(`${process.env.NEXT_PUBLIC_API_URL}/${params.room_id}/${params.player_id}`, {
+      fetch(`${process.env.NEXT_PUBLIC_API_URL}/${room_id}/${player_id}`, {
         method: 'POST',
         body: formData,
       });
@@ -52,7 +54,7 @@ export default function Timer({
       }
       window.location.reload();
     }
-  }, [timeLeft, hint, hintTypes, params, teach_token]);
+  }, [timeLeft, hint, hintTypes, player_id, room_id, teach_token]);
 
   return (
     <CircularProgress

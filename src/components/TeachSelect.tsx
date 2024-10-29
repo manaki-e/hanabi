@@ -1,8 +1,8 @@
 'use client';
 
 import { Button } from '@nextui-org/button';
-import { CircularProgress } from '@nextui-org/progress';
 import { Select, SelectItem } from '@nextui-org/select';
+import { Spinner } from '@nextui-org/spinner';
 import { useState } from 'react';
 
 import { getCurrentTime } from '@/lib/getCurrentTime';
@@ -11,13 +11,15 @@ import { submitData } from '@/lib/submitData';
 import { useTimer } from './function/timer.hooks';
 
 export default function TeachSelect({
-  params,
+  room_id,
+  player_id,
   opponent_hand,
   teach_token,
   isPlayer,
   isTimer,
 }: {
-  params: { room_id: string; player_id: string };
+  room_id: string;
+  player_id: string;
   opponent_hand: { color: string; number: number }[];
   teach_token: number;
   isPlayer: boolean;
@@ -65,12 +67,12 @@ export default function TeachSelect({
       const formData = new FormData(event.currentTarget as HTMLFormElement);
       setTimeout(
         () => {
-          submitData(event, params, formData, elapsed_time).finally(() => setIsLoading(false));
+          submitData(event, room_id, player_id, formData, elapsed_time).finally(() => setIsLoading(false));
         },
         (timeLeft - 1) * 1000,
       );
     } else {
-      submitData(event, params, undefined, elapsed_time).finally(() => setIsLoading(false));
+      submitData(event, room_id, player_id, undefined, elapsed_time).finally(() => setIsLoading(false));
     }
   };
 
@@ -127,7 +129,7 @@ export default function TeachSelect({
       </Button>
       {isLoading && (
         <div className="absolute left-0 top-0 z-50 flex h-screen w-screen items-center justify-center bg-white opacity-60">
-          <CircularProgress aria-label="Loading..." color="primary" size="lg" />
+          <Spinner color="primary" size="lg" />
         </div>
       )}
     </form>

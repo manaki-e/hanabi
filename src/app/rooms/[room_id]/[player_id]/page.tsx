@@ -14,21 +14,22 @@ import AutoReload from '@/components/function/AutoReload';
 import { MISS_TOKEN, TEACH_TOKEN } from '@/lib/constant';
 import { Color, Dataset } from '@/lib/types';
 
-export default async function Page({ params }: { params: { room_id: string; player_id: string } }) {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/${params.room_id}/${params.player_id}`, {
+export default async function Page({ params }: { params: Promise<{ room_id: string; player_id: string }> }) {
+  const { room_id, player_id } = await params;
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/${room_id}/${player_id}`, {
     method: 'GET',
     cache: 'no-cache',
   });
   const dataset = (await res.json()) as Dataset;
 
-  const isPlayer = dataset.current_player === Number(params.player_id) % 2;
-  const isTimer = Number(params.room_id) % 2 === 1 && Number(params.player_id) !== 2;
+  const isPlayer = dataset.current_player === Number(player_id) % 2;
+  const isTimer = Number(room_id) % 2 === 1 && Number(player_id) !== 2;
 
   return (
     <>
       {!isPlayer &&
         !dataset.is_finished &&
-        (params.player_id !== '2' ? <AutoReload /> : <AgentAction params={params} />)}
+        (player_id !== '2' ? <AutoReload /> : <AgentAction player_id={player_id} room_id={room_id} />)}
 
       <div className="mx-8 flex gap-8">
         <div className="flex h-16 flex-1 flex-col justify-center align-middle">
@@ -38,7 +39,8 @@ export default async function Page({ params }: { params: { room_id: string; play
           <Timer
             disabled={!isPlayer}
             opponent_hand={dataset.opponent_hand}
-            params={params}
+            player_id={player_id}
+            room_id={room_id}
             teach_token={dataset.teach_token}
           />
         )}
@@ -123,13 +125,20 @@ export default async function Page({ params }: { params: { room_id: string; play
               isPlayer={isPlayer}
               isTimer={isTimer}
               opponent_hand={dataset.opponent_hand}
-              params={params}
+              player_id={player_id}
+              room_id={room_id}
               teach_token={dataset.teach_token}
             />
           </div>
-          <ActionHistory history={dataset.history} params={params} />
+          <ActionHistory history={dataset.history} player_id={player_id} room_id={room_id} />
           <div className="my-4">
-            <ActionSelect isPlayer={isPlayer} isTimer={isTimer} params={params} teach_token={dataset.teach_token} />
+            <ActionSelect
+              isPlayer={isPlayer}
+              isTimer={isTimer}
+              player_id={player_id}
+              room_id={room_id}
+              teach_token={dataset.teach_token}
+            />
           </div>
         </div>
       </div>

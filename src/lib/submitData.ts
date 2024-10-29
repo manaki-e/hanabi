@@ -1,9 +1,7 @@
 export const submitData = async (
   event: React.FormEvent<HTMLFormElement>,
-  params: {
-    room_id: string;
-    player_id: string;
-  },
+  room_id: string,
+  player_id: string,
   formData?: FormData,
   time?: number,
 ) => {
@@ -18,7 +16,7 @@ export const submitData = async (
     formData.append('act', submitter.value);
   }
 
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/${params.room_id}/${params.player_id}?time=${time}`, {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/${room_id}/${player_id}?time=${time}`, {
     method: 'POST',
     body: formData,
   });
