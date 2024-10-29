@@ -12,13 +12,16 @@ export default function ActionHistory({
 }) {
   return (
     <ScrollShadow className="h-full" offset={10}>
-      <ul className="py-4 text-xs leading-normal">
+      <ul className="py-4 text-xs font-semibold leading-normal">
         {history
           .slice()
           .reverse()
           .map((action, index) => (
-            <li key={index}>
-              {action.player_id === Number(player_id) % 2 ? '自分' : Number(player_id) === 2 ? 'AI' : '相手'}：
+            <li
+              className={`pb-1 leading-normal ${action.player_id === Number(player_id) % 2 ? '' : 'text-danger-400'}`}
+              key={index}
+            >
+              {action.player_id === Number(player_id) % 2 ? '自分' : Number(player_id) === 2 ? 'Agent' : '相手'}：
               {action.message}
             </li>
           ))}
