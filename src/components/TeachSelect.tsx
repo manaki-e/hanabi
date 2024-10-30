@@ -16,14 +16,14 @@ export default function TeachSelect({
   opponent_hand,
   teach_token,
   isPlayer,
-  isTimer,
+  isFixedTime,
 }: {
   room_id: string;
   player_id: string;
   opponent_hand: { color: string; number: number }[];
   teach_token: number;
   isPlayer: boolean;
-  isTimer: boolean;
+  isFixedTime: boolean;
 }) {
   const [selectedOption, setSelectedOption] = useState('');
   const [selectedColor, setSelectedColor] = useState('');
@@ -33,7 +33,7 @@ export default function TeachSelect({
 
   const [startTime] = useState(getCurrentTime());
 
-  const timeLeft = useTimer({ disabled: !isTimer });
+  const timeLeft = useTimer({ disabled: !isFixedTime });
 
   const handleSelectChange = (value: string) => {
     setSelectedOption(value);
@@ -63,7 +63,7 @@ export default function TeachSelect({
     event.preventDefault();
     setIsLoading(true);
     const elapsed_time = getCurrentTime() - startTime;
-    if (isTimer) {
+    if (isFixedTime) {
       const formData = new FormData(event.currentTarget as HTMLFormElement);
       setTimeout(
         () => {

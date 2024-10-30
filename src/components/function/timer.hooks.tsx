@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
 export const useTimer = ({ disabled }: { disabled: boolean }) => {
-  const [timeLeft, setTimeLeft] = useState(20);
+  const [timeLeft, setTimeLeft] = useState(30);
   useEffect(() => {
     if (disabled) {
       return;

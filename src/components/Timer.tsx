@@ -53,10 +53,10 @@ export default function Timer({
       });
       if (teach_token === TEACH_TOKEN) {
         onOpen();
-        setModalMessage('時間切れです！そのため、自動的にヒントを与えました。');
+        setModalMessage('そのため、自動的にヒントを与えました。');
       } else {
         onOpen();
-        setModalMessage('時間切れです！そのため、自動的に一番左のカードを捨てました。');
+        setModalMessage('そのため、自動的に一番左のカードを捨てました。');
       }
       setTimeout(() => {
         onOpenChange();
@@ -78,7 +78,7 @@ export default function Timer({
           value: `text-2xl font-semibold ${disabled ? 'text-warning' : 'text-danger'}`,
         }}
         formatOptions={{ style: 'decimal' }}
-        maxValue={20}
+        maxValue={30}
         minValue={0}
         showValueLabel={true}
         strokeWidth={3}
@@ -95,7 +95,11 @@ export default function Timer({
           {(onClose) => (
             <>
               <ModalBody>
-                <p className="py-2 text-sm">{modalMessage}</p>
+                <p className="pt-4 text-sm">
+                  時間切れです！
+                  <br />
+                  {modalMessage}
+                </p>
               </ModalBody>
               <ModalFooter>
                 <Button
@@ -106,7 +110,7 @@ export default function Timer({
                   }}
                   variant="light"
                 >
-                  Close
+                  閉じる
                 </Button>
               </ModalFooter>
             </>

@@ -16,19 +16,19 @@ export default function ActionSelect({
   player_id,
   teach_token,
   isPlayer,
-  isTimer,
+  isFixedTime,
 }: {
   room_id: string;
   player_id: string;
   teach_token: number;
   isPlayer: boolean;
-  isTimer: boolean;
+  isFixedTime: boolean;
 }) {
   const [selectedIndex, setSelectedIndex] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [startTime] = useState(getCurrentTime());
 
-  const timeLeft = useTimer({ disabled: !isTimer });
+  const timeLeft = useTimer({ disabled: !isFixedTime });
 
   const handleIndexChange = (value: string) => {
     setSelectedIndex(value);
@@ -42,7 +42,7 @@ export default function ActionSelect({
     event.preventDefault();
     setIsLoading(true);
     const elapsed_time = getCurrentTime() - startTime;
-    if (isTimer) {
+    if (isFixedTime) {
       const formData = new FormData(event.currentTarget as HTMLFormElement);
       setTimeout(
         () => {

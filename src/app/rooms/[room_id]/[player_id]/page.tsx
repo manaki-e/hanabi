@@ -22,7 +22,7 @@ export default async function Page({ params }: { params: Promise<{ room_id: stri
   const dataset = (await res.json()) as Dataset;
 
   const isPlayer = dataset.current_player === Number(player_id) % 2;
-  const isTimer = Number(room_id) % 2 === 1 && Number(player_id) !== 2;
+  const isFixedTime = Number(room_id) % 2 === 1 && Number(player_id) !== 2;
 
   return (
     <>
@@ -34,15 +34,13 @@ export default async function Page({ params }: { params: Promise<{ room_id: stri
         <div className="flex h-16 flex-1 flex-col justify-center align-middle">
           <Message isFinished={dataset.is_finished} isPlayer={isPlayer} />
         </div>
-        {isTimer && (
-          <Timer
-            disabled={!isPlayer}
-            opponent_hand={dataset.opponent_hand}
-            player_id={player_id}
-            room_id={room_id}
-            teach_token={dataset.teach_token}
-          />
-        )}
+        <Timer
+          disabled={!isPlayer}
+          opponent_hand={dataset.opponent_hand}
+          player_id={player_id}
+          room_id={room_id}
+          teach_token={dataset.teach_token}
+        />
       </div>
 
       <div className="flex size-full justify-between gap-4" style={{ height: `calc(100% - 65px)` }}>
@@ -131,8 +129,8 @@ export default async function Page({ params }: { params: Promise<{ room_id: stri
         <div className="flex w-1/4 flex-col justify-between p-4">
           <div className="my-4">
             <TeachSelect
+              isFixedTime={isFixedTime}
               isPlayer={isPlayer}
-              isTimer={isTimer}
               opponent_hand={dataset.opponent_hand}
               player_id={player_id}
               room_id={room_id}
@@ -142,8 +140,8 @@ export default async function Page({ params }: { params: Promise<{ room_id: stri
           <ActionHistory history={dataset.history} player_id={player_id} room_id={room_id} />
           <div className="my-4">
             <ActionSelect
+              isFixedTime={isFixedTime}
               isPlayer={isPlayer}
-              isTimer={isTimer}
               player_id={player_id}
               room_id={room_id}
               teach_token={dataset.teach_token}
