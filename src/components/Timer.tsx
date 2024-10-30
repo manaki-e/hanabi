@@ -1,7 +1,9 @@
 'use client';
 
+import { Button } from '@nextui-org/button';
+import { Modal, ModalContent, ModalBody, ModalFooter, useDisclosure } from '@nextui-org/modal';
 import { CircularProgress } from '@nextui-org/progress';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 import { TEACH_TOKEN } from '@/lib/constant';
 
@@ -21,6 +23,8 @@ export default function Timer({
   opponent_hand: { color: string; number: number }[];
 }) {
   const timeLeft = useTimer({ disabled });
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const [modalMessage, setModalMessage] = useState('');
 
   const uniqueColors = Array.from(new Set(opponent_hand.map((card) => card.color))).sort();
   const uniqueNumbers = Array.from(new Set(opponent_hand.map((card) => card.number))).sort();
@@ -48,28 +52,67 @@ export default function Timer({
         body: formData,
       });
       if (teach_token === TEACH_TOKEN) {
-        alert('時間切れです！そのため、自動的にヒントを与えました。');
+        onOpen();
+        setModalMessage('時間切れです！そのため、自動的にヒントを与えました。');
       } else {
-        alert('時間切れです！そのため、自動的に一番左のカードを捨てました。');
+        onOpen();
+        setModalMessage('時間切れです！そのため、自動的に一番左のカードを捨てました。');
       }
-      window.location.reload();
+      setTimeout(() => {
+        onOpenChange();
+        if (isOpen) {
+          window.location.reload();
+        }
+      }, 3000);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [timeLeft, hint, hintTypes, player_id, room_id, teach_token]);
 
   return (
-    <CircularProgress
-      classNames={{
-        svg: 'w-16 h-16 drop-shadow-md',
-        indicator: `${disabled ? 'stroke-warning' : 'stroke-danger'}`,
-        track: 'stroke-white/10',
-        value: `text-2xl font-semibold ${disabled ? 'text-warning' : 'text-danger'}`,
-      }}
-      formatOptions={{ style: 'decimal' }}
-      maxValue={20}
-      minValue={0}
-      showValueLabel={true}
-      strokeWidth={3}
-      value={timeLeft}
-    />
+    <>
+      <CircularProgress
+        classNames={{
+          svg: 'w-16 h-16 drop-shadow-md',
+          indicator: `${disabled ? 'stroke-warning' : 'stroke-danger'}`,
+          track: 'stroke-white/10',
+          value: `text-2xl font-semibold ${disabled ? 'text-warning' : 'text-danger'}`,
+        }}
+        formatOptions={{ style: 'decimal' }}
+        maxValue={20}
+        minValue={0}
+        showValueLabel={true}
+        strokeWidth={3}
+        value={timeLeft}
+      />
+      <Modal
+        isOpen={isOpen}
+        onOpenChange={() => {
+          onOpenChange();
+          window.location.reload();
+        }}
+      >
+        <ModalContent>
+          {(onClose) => (
+            <>
+              <ModalBody>
+                <p className="py-2 text-sm">{modalMessage}</p>
+              </ModalBody>
+              <ModalFooter>
+                <Button
+                  color="danger"
+                  onPress={() => {
+                    onClose();
+                    window.location.reload();
+                  }}
+                  variant="light"
+                >
+                  Close
+                </Button>
+              </ModalFooter>
+            </>
+          )}
+        </ModalContent>
+      </Modal>
+    </>
   );
 }
