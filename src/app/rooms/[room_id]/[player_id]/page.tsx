@@ -51,7 +51,7 @@ export default async function Page({ params }: { params: Promise<{ room_id: stri
                 svg: 'w-28 h-28 drop-shadow-md',
                 indicator: 'stroke-primary',
                 track: 'stroke-white/10',
-                value: 'text-xl font-semibold text-primary',
+                value: 'text-3xl font-semibold text-primary',
               }}
               formatOptions={{ style: 'decimal' }}
               label="残りの山札枚数"
@@ -66,7 +66,7 @@ export default async function Page({ params }: { params: Promise<{ room_id: stri
                 svg: 'w-28 h-28 drop-shadow-md',
                 indicator: 'stroke-primary',
                 track: 'stroke-white/10',
-                value: 'text-xl font-semibold text-primary',
+                value: 'text-3xl font-semibold text-primary',
               }}
               formatOptions={{ style: 'decimal' }}
               label="ヒントトークン"
@@ -81,7 +81,7 @@ export default async function Page({ params }: { params: Promise<{ room_id: stri
                 svg: 'w-28 h-28 drop-shadow-md',
                 indicator: 'stroke-danger',
                 track: 'stroke-white/10',
-                value: 'text-xl font-semibold text-danger',
+                value: 'text-3xl font-semibold text-danger',
               }}
               formatOptions={{ style: 'decimal' }}
               label="ミストークン"
@@ -96,7 +96,7 @@ export default async function Page({ params }: { params: Promise<{ room_id: stri
                 svg: 'w-28 h-28 drop-shadow-md',
                 indicator: 'stroke-success',
                 track: 'stroke-white/10',
-                value: 'text-xl font-semibold text-success',
+                value: 'text-3xl font-semibold text-success',
               }}
               formatOptions={{ style: 'decimal' }}
               label="現在の合計点数"
