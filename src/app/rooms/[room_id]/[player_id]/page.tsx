@@ -57,7 +57,7 @@ export default async function Page({ params }: { params: Promise<{ room_id: stri
               }}
               formatOptions={{ style: 'decimal' }}
               label="残りの山札枚数"
-              maxValue={25}
+              maxValue={40}
               minValue={0}
               showValueLabel={true}
               strokeWidth={3}
