@@ -81,25 +81,27 @@ export default function TeachSelect({
       <input name="form_id" type="hidden" value="hint" />
       <div className="flex flex-col gap-4">
         <Select
-          aria-label="ColorまたはNumberを選択"
+          aria-label="ヒントの種類を選択"
+          classNames={{ value: 'text-xs' }}
           defaultSelectedKeys={selectedOption}
           label=""
           name="teach"
           onChange={(e) => handleSelectChange(e.target.value)}
-          placeholder="ColorまたはNumberを選択"
+          placeholder="ヒントの種類を選択"
           size="lg"
           variant="faded"
         >
-          <SelectItem key="color">Color</SelectItem>
-          <SelectItem key="number">Number</SelectItem>
+          <SelectItem key="color">色</SelectItem>
+          <SelectItem key="number">数字</SelectItem>
         </Select>
         {selectedOption === 'color' && (
           <Select
-            aria-label="Colorを選択"
+            aria-label="色を選択"
+            classNames={{ value: 'text-xs' }}
             label=""
             name="color"
             onChange={(e) => handleColorChange(e.target.value)}
-            placeholder="Colorを選択"
+            placeholder="色を選択"
             size="lg"
             variant="faded"
           >
@@ -110,11 +112,12 @@ export default function TeachSelect({
         )}
         {selectedOption === 'number' && (
           <Select
-            aria-label="Numberを選択"
+            aria-label="数字を選択"
+            classNames={{ value: 'text-xs' }}
             label=""
             name="number"
             onChange={(e) => handleNumberChange(e.target.value)}
-            placeholder="Numberを選択"
+            placeholder="数字を選択"
             size="lg"
             variant="faded"
           >

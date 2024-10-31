@@ -60,6 +60,7 @@ export default function ActionSelect({
       <input name="form_id" type="hidden" value="action" />
       <Select
         aria-label="カード番号を選択"
+        classNames={{ value: 'text-xs' }}
         label=""
         name="index"
         onChange={(e) => handleIndexChange(e.target.value)}

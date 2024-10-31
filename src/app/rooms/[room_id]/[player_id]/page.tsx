@@ -48,7 +48,7 @@ export default async function Page({ params }: { params: Promise<{ room_id: stri
           <div className="flex flex-wrap justify-center gap-8">
             <CircularProgress
               classNames={{
-                svg: 'w-28 h-28 drop-shadow-md',
+                svg: 'w-24 h-24 drop-shadow-md',
                 indicator: 'stroke-primary',
                 track: 'stroke-white/10',
                 value: 'text-3xl font-semibold text-primary',
@@ -63,7 +63,7 @@ export default async function Page({ params }: { params: Promise<{ room_id: stri
             />
             <CircularProgress
               classNames={{
-                svg: 'w-28 h-28 drop-shadow-md',
+                svg: 'w-24 h-24 drop-shadow-md',
                 indicator: 'stroke-primary',
                 track: 'stroke-white/10',
                 value: 'text-3xl font-semibold text-primary',
@@ -78,7 +78,7 @@ export default async function Page({ params }: { params: Promise<{ room_id: stri
             />
             <CircularProgress
               classNames={{
-                svg: 'w-28 h-28 drop-shadow-md',
+                svg: 'w-24 h-24 drop-shadow-md',
                 indicator: 'stroke-danger',
                 track: 'stroke-white/10',
                 value: 'text-3xl font-semibold text-danger',
@@ -93,7 +93,7 @@ export default async function Page({ params }: { params: Promise<{ room_id: stri
             />
             <CircularProgress
               classNames={{
-                svg: 'w-28 h-28 drop-shadow-md',
+                svg: 'w-24 h-24 drop-shadow-md',
                 indicator: 'stroke-success',
                 track: 'stroke-white/10',
                 value: 'text-3xl font-semibold text-success',
@@ -109,18 +109,18 @@ export default async function Page({ params }: { params: Promise<{ room_id: stri
           </div>
           <TrashTable trash_table={dataset.trash_table} />
         </div>
-        <div className="flex flex-col justify-between overflow-hidden">
-          <div className="m-4 flex gap-4 overflow-hidden">
+        <div className="flex flex-1 flex-col justify-between py-2">
+          <div className="flex w-full justify-between px-4">
             {dataset.opponent_hand.map((card: { color: Color; number: CardNumber }, index: number) => (
               <Card color={card.color} hint={dataset.opponent_info[index]} key={index} number={card.number} />
             ))}
           </div>
-          <div className="flex gap-4 rounded-md bg-yellow-600/60 p-4">
+          <div className="flex w-full justify-between rounded-md bg-yellow-600/60 p-4">
             {dataset.field_cards.map((card: { color: Color; number: CardNumber }, index: number) => (
               <Card color={card.color} key={index} number={card.number} />
             ))}
           </div>
-          <div className="m-4 flex gap-4">
+          <div className="flex w-full justify-between px-4">
             {dataset.player_info.map((card: { color: Color; number: CardNumber }, index: number) => (
               <Card color={card.color} key={index} number={card.number} />
             ))}
