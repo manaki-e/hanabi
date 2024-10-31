@@ -17,6 +17,7 @@ export type Dataset = {
   mistake_token: number;
   field_cards: Card[];
   opponent_hand: Card[];
+  opponent_info: Card[];
   player_hand: Card[];
   player_info: Card[];
   remaining_cards: number;
@@ -24,7 +25,7 @@ export type Dataset = {
     message: string;
     player_id: number;
   }[];
-  trash_table: Record<Color, number[]>;
-  current_player: number;
+  trash_table: Record<Color, Number[]>;
+  current_player: 0 | 1;
   is_finished: boolean;
 };

@@ -11,7 +11,7 @@ import AgentAction from '@/components/function/AgentAction';
 import AutoReload from '@/components/function/AutoReload';
 
 import { MISS_TOKEN, TEACH_TOKEN } from '@/lib/constant';
-import { Color, Dataset } from '@/lib/types';
+import { Color, Dataset, Number as CardNumber } from '@/lib/types';
 
 export default async function Page({ params }: { params: Promise<{ room_id: string; player_id: string }> }) {
   const { room_id, player_id } = await params;
@@ -111,17 +111,17 @@ export default async function Page({ params }: { params: Promise<{ room_id: stri
         </div>
         <div className="flex flex-col justify-between overflow-hidden">
           <div className="m-4 flex gap-4 overflow-hidden">
-            {dataset.opponent_hand.map((card: { color: Color; number: number }, index: number) => (
-              <Card color={card.color} key={index} number={card.number} />
+            {dataset.opponent_hand.map((card: { color: Color; number: CardNumber }, index: number) => (
+              <Card color={card.color} hint={dataset.opponent_info[index]} key={index} number={card.number} />
             ))}
           </div>
           <div className="flex gap-4 rounded-md bg-yellow-600/60 p-4">
-            {dataset.field_cards.map((card: { color: Color; number: number }, index: number) => (
+            {dataset.field_cards.map((card: { color: Color; number: CardNumber }, index: number) => (
               <Card color={card.color} key={index} number={card.number} />
             ))}
           </div>
           <div className="m-4 flex gap-4">
-            {dataset.player_info.map((card: { color: Color; number: number }, index: number) => (
+            {dataset.player_info.map((card: { color: Color; number: CardNumber }, index: number) => (
               <Card color={card.color} key={index} number={card.number} />
             ))}
           </div>
