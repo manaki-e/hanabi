@@ -35,7 +35,7 @@ export default async function Page({ params }: { params: Promise<{ room_id: stri
           <Message isFinished={dataset.is_finished} isPlayer={isPlayer} />
         </div>
         <Timer
-          disabled={!isPlayer}
+          disabled={!isPlayer || dataset.is_finished}
           opponent_hand={dataset.opponent_hand}
           player_id={player_id}
           room_id={room_id}
