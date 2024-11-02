@@ -32,7 +32,7 @@ export default function Card({
   const hint_text_color = getTextColorClass(hint?.color);
 
   return (
-    <div className='w-1/6'>
+    <div className="w-1/6">
       <div
         className={`flex flex-col justify-between ${hint ? 'rounded-t-xl' : 'rounded-xl'} bg-gray-700 text-center align-middle`}
       >
