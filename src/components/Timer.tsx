@@ -72,12 +72,13 @@ export default function Timer({
     <>
       <CircularProgress
         classNames={{
-          svg: 'w-16 h-16 drop-shadow-md',
-          indicator: `${disabled ? 'stroke-warning' : 'stroke-danger'}`,
+          svg: 'w-24 h-24 drop-shadow-md',
+          indicator: 'stroke-danger',
           track: 'stroke-white/10',
-          value: `text-2xl font-semibold ${disabled ? 'text-warning' : 'text-danger'}`,
+          value: 'text-2xl font-semibold text-danger',
         }}
         formatOptions={{ style: 'decimal' }}
+        label="残り時間"
         maxValue={30}
         minValue={0}
         showValueLabel={true}

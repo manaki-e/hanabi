@@ -30,25 +30,12 @@ export default async function Page({ params }: { params: Promise<{ room_id: stri
         !dataset.is_finished &&
         (player_id !== '2' ? <AutoReload /> : <AgentAction player_id={player_id} room_id={room_id} />)}
 
-      <div className="mx-8 flex gap-8">
-        <div className="flex h-16 flex-1 flex-col justify-center align-middle">
-          <Message isFinished={dataset.is_finished} isPlayer={isPlayer} />
-        </div>
-        <Timer
-          disabled={!isPlayer || dataset.is_finished}
-          opponent_hand={dataset.opponent_hand}
-          player_id={player_id}
-          room_id={room_id}
-          teach_token={dataset.teach_token}
-        />
-      </div>
-
-      <div className="flex size-full justify-between gap-4" style={{ height: `calc(100% - 65px)` }}>
+      <div className="flex size-full justify-between gap-4">
         <div className="flex w-1/4 flex-col justify-between p-4">
           <div className="flex flex-wrap justify-center gap-8">
             <CircularProgress
               classNames={{
-                svg: 'w-24 h-24 drop-shadow-md',
+                svg: 'w-20 h-20 drop-shadow-md',
                 indicator: 'stroke-primary',
                 track: 'stroke-white/10',
                 value: 'text-3xl font-semibold text-primary',
@@ -58,12 +45,12 @@ export default async function Page({ params }: { params: Promise<{ room_id: stri
               maxValue={40}
               minValue={0}
               showValueLabel={true}
-              strokeWidth={3}
+              strokeWidth={2}
               value={dataset.remaining_cards}
             />
             <CircularProgress
               classNames={{
-                svg: 'w-24 h-24 drop-shadow-md',
+                svg: 'w-20 h-20 drop-shadow-md',
                 indicator: 'stroke-primary',
                 track: 'stroke-white/10',
                 value: 'text-3xl font-semibold text-primary',
@@ -73,27 +60,27 @@ export default async function Page({ params }: { params: Promise<{ room_id: stri
               maxValue={TEACH_TOKEN}
               minValue={0}
               showValueLabel={true}
-              strokeWidth={3}
+              strokeWidth={2}
               value={dataset.teach_token}
             />
             <CircularProgress
               classNames={{
-                svg: 'w-24 h-24 drop-shadow-md',
-                indicator: 'stroke-danger',
+                svg: 'w-20 h-20 drop-shadow-md',
+                indicator: 'stroke-warning',
                 track: 'stroke-white/10',
-                value: 'text-3xl font-semibold text-danger',
+                value: 'text-3xl font-semibold text-warning',
               }}
               formatOptions={{ style: 'decimal' }}
               label="ミストークン"
               maxValue={MISS_TOKEN}
               minValue={0}
               showValueLabel={true}
-              strokeWidth={3}
+              strokeWidth={2}
               value={dataset.mistake_token}
             />
             <CircularProgress
               classNames={{
-                svg: 'w-24 h-24 drop-shadow-md',
+                svg: 'w-20 h-20 drop-shadow-md',
                 indicator: 'stroke-success',
                 track: 'stroke-white/10',
                 value: 'text-3xl font-semibold text-success',
@@ -103,8 +90,15 @@ export default async function Page({ params }: { params: Promise<{ room_id: stri
               maxValue={25}
               minValue={0}
               showValueLabel={true}
-              strokeWidth={3}
+              strokeWidth={2}
               value={dataset.field_cards.reduce((sum: number, card: { number: number }) => sum + card.number, 0)}
+            />
+            <Timer
+              disabled={!isPlayer || dataset.is_finished}
+              opponent_hand={dataset.opponent_hand}
+              player_id={player_id}
+              room_id={room_id}
+              teach_token={dataset.teach_token}
             />
           </div>
           <TrashTable trash_table={dataset.trash_table} />
@@ -137,6 +131,7 @@ export default async function Page({ params }: { params: Promise<{ room_id: stri
               teach_token={dataset.teach_token}
             />
           </div>
+          <Message isFinished={dataset.is_finished} isPlayer={isPlayer} />
           <ActionHistory history={dataset.history} player_id={player_id} room_id={room_id} />
           <div className="my-4">
             <ActionSelect

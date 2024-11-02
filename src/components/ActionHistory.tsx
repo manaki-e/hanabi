@@ -18,7 +18,7 @@ export default function ActionHistory({
           .reverse()
           .map((action, index) => (
             <li
-              className={`pb-1 leading-normal ${action.player_id === Number(player_id) % 2 ? '' : 'text-danger-400'}`}
+              className={`pb-1 leading-normal ${action.player_id !== Number(player_id) % 2 && 'text-danger-400'} ${index === 0 && 'text-sm'}`}
               key={index}
             >
               {action.player_id === Number(player_id) % 2 ? '自分' : Number(player_id) === 2 ? 'Agent' : '相手'}：
