@@ -1,6 +1,6 @@
 export default function Message({ isPlayer, isFinished }: { isPlayer: boolean; isFinished: boolean }) {
   const message = isFinished
-    ? 'ゲームが終了しました。現在の合計点数を確認してください。'
+    ? 'ゲームが終了しました。'
     : isPlayer
       ? 'あなたのターンです！'
       : '相手のターンを待っています。。。';
