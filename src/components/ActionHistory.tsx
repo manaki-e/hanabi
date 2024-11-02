@@ -1,5 +1,6 @@
 'use client';
 
+import { Divider } from '@nextui-org/divider';
 import { ScrollShadow } from '@nextui-org/scroll-shadow';
 
 export default function ActionHistory({
@@ -23,6 +24,7 @@ export default function ActionHistory({
             >
               {action.player_id === Number(player_id) % 2 ? '自分' : Number(player_id) === 2 ? 'Agent' : '相手'}：
               {action.message}
+              {index === 0 && <Divider className="my-2" />}
             </li>
           ))}
       </ul>
