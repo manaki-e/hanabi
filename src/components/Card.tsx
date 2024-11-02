@@ -40,7 +40,7 @@ export default function Card({
         <p className={`${text_color} py-2 font-mono text-3xl`}>{number ?? '?'}</p>
       </div>
       {hint && (
-        <div className="flex justify-between rounded-b-xl border-t bg-gray-900 px-4 text-center align-middle">
+        <div className="flex justify-between rounded-b-xl border-t bg-gray-700 px-4 text-center align-middle">
           <Hanabi color={hint_text_color} is_small={true}></Hanabi>
           <p className={`${hint_text_color} flex items-center font-mono text-lg`}>{hint.number ?? '?'}</p>
         </div>
