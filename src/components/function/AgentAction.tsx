@@ -1,6 +1,6 @@
 'use client';
 
-import { Spinner } from '@nextui-org/spinner';
+import { Progress } from '@nextui-org/progress';
 import { useState, useEffect } from 'react';
 
 export default function AgentAction({ room_id, player_id }: { room_id: string; player_id: string }) {
@@ -30,8 +30,16 @@ export default function AgentAction({ room_id, player_id }: { room_id: string; p
   }, [thinkingTime]);
 
   return (
-    <div className="absolute left-0 top-0 z-50 flex h-screen w-screen items-center justify-center bg-white opacity-60">
-      <Spinner color="primary" size="lg" />
+    <div className="absolute left-0 top-0 z-50 flex h-screen w-screen items-center justify-center ">
+      <div className="absolute left-0 top-0 size-full bg-white opacity-60"></div>
+      <Progress
+        aria-label="Loading..."
+        classNames={{ base: 'relative bg-white p-4 max-w-md', labelWrapper: 'flex justify-center items-center' }}
+        color="success"
+        isIndeterminate
+        label="Agentが考え中です・・・"
+        size="md"
+      />
     </div>
   );
 }
