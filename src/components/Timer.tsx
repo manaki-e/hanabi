@@ -36,7 +36,7 @@ export default function Timer({
       : uniqueNumbers[Math.floor(Math.random() * uniqueNumbers.length)];
 
   useEffect(() => {
-    if (timeLeft < 0) {
+    if (timeLeft == 0) {
       const formData = new FormData();
       if (teach_token === TEACH_TOKEN) {
         formData.append('form_id', 'hint');
@@ -60,13 +60,11 @@ export default function Timer({
       }
       setTimeout(() => {
         onOpenChange();
-        if (isOpen) {
-          window.location.reload();
-        }
+        window.location.reload();
       }, 3000);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [timeLeft, hint, hintTypes, player_id, room_id, teach_token]);
+  }, [timeLeft]);
 
   return (
     <>
