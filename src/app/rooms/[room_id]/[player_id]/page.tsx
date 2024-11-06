@@ -32,67 +32,71 @@ export default async function Page({ params }: { params: Promise<{ room_id: stri
 
       <div className="flex size-full justify-between gap-4">
         <div className="flex w-1/4 flex-col justify-between p-4">
-          <div className="flex flex-wrap justify-center gap-8">
-            <CircularProgress
-              classNames={{
-                svg: 'w-20 h-20 drop-shadow-md',
-                indicator: 'stroke-primary',
-                track: 'stroke-white/10',
-                value: 'text-2xl font-semibold text-primary',
-              }}
-              formatOptions={{ style: 'decimal' }}
-              label="残りの山札枚数"
-              maxValue={40}
-              minValue={0}
-              showValueLabel={true}
-              strokeWidth={2}
-              value={dataset.remaining_cards}
-            />
-            <CircularProgress
-              classNames={{
-                svg: 'w-20 h-20 drop-shadow-md',
-                indicator: 'stroke-primary',
-                track: 'stroke-white/10',
-                value: 'text-2xl font-semibold text-primary',
-              }}
-              formatOptions={{ style: 'decimal' }}
-              label="ヒントトークン"
-              maxValue={TEACH_TOKEN}
-              minValue={0}
-              showValueLabel={true}
-              strokeWidth={2}
-              value={dataset.teach_token}
-            />
-            <CircularProgress
-              classNames={{
-                svg: 'w-20 h-20 drop-shadow-md',
-                indicator: 'stroke-warning',
-                track: 'stroke-white/10',
-                value: 'text-2xl font-semibold text-warning',
-              }}
-              formatOptions={{ style: 'decimal' }}
-              label="ミストークン"
-              maxValue={MISS_TOKEN}
-              minValue={0}
-              showValueLabel={true}
-              strokeWidth={2}
-              value={dataset.mistake_token}
-            />
-            <CircularProgress
-              classNames={{
-                svg: 'w-20 h-20 drop-shadow-md',
-                indicator: 'stroke-success',
-                track: 'stroke-white/10',
-                value: 'text-2xl font-semibold text-success',
-              }}
-              formatOptions={{ style: 'decimal' }}
-              label="現在の合計点数"
-              maxValue={25}
-              minValue={0}
-              showValueLabel={true}
-              strokeWidth={2}
-              value={dataset.field_cards.reduce((sum: number, card: { number: number }) => sum + card.number, 0)}
-            />
+          <div className="flex flex-col items-center gap-4">
+            <div className="flex gap-8">
+              <CircularProgress
+                classNames={{
+                  svg: 'w-20 h-20 drop-shadow-md',
+                  indicator: 'stroke-primary',
+                  track: 'stroke-white/10',
+                  value: 'text-2xl font-semibold text-primary',
+                }}
+                formatOptions={{ style: 'decimal' }}
+                label="残りの山札枚数"
+                maxValue={40}
+                minValue={0}
+                showValueLabel={true}
+                strokeWidth={2}
+                value={dataset.remaining_cards}
+              />
+              <CircularProgress
+                classNames={{
+                  svg: 'w-20 h-20 drop-shadow-md',
+                  indicator: 'stroke-primary',
+                  track: 'stroke-white/10',
+                  value: 'text-2xl font-semibold text-primary',
+                }}
+                formatOptions={{ style: 'decimal' }}
+                label="ヒントトークン"
+                maxValue={TEACH_TOKEN}
+                minValue={0}
+                showValueLabel={true}
+                strokeWidth={2}
+                value={dataset.teach_token}
+              />
+            </div>
+            <div className="flex gap-8">
+              <CircularProgress
+                classNames={{
+                  svg: 'w-20 h-20 drop-shadow-md',
+                  indicator: 'stroke-warning',
+                  track: 'stroke-white/10',
+                  value: 'text-2xl font-semibold text-warning',
+                }}
+                formatOptions={{ style: 'decimal' }}
+                label="ミストークン"
+                maxValue={MISS_TOKEN}
+                minValue={0}
+                showValueLabel={true}
+                strokeWidth={2}
+                value={dataset.mistake_token}
+              />
+              <CircularProgress
+                classNames={{
+                  svg: 'w-20 h-20 drop-shadow-md',
+                  indicator: 'stroke-success',
+                  track: 'stroke-white/10',
+                  value: 'text-2xl font-semibold text-success',
+                }}
+                formatOptions={{ style: 'decimal' }}
+                label="現在の合計点数"
+                maxValue={25}
+                minValue={0}
+                showValueLabel={true}
+                strokeWidth={2}
+                value={dataset.field_cards.reduce((sum: number, card: { number: number }) => sum + card.number, 0)}
+              />
+            </div>
             <Timer
               disabled={!isPlayer || dataset.is_finished}
               opponent_hand={dataset.opponent_hand}
