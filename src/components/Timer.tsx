@@ -47,7 +47,7 @@ export default function Timer({
         formData.append('index', '0');
         formData.append('act', 'trash');
       }
-      fetch(`${process.env.NEXT_PUBLIC_API_URL}/${room_id}/${player_id}?time=30`, {
+      fetch(`${process.env.NEXT_PUBLIC_API_URL}/${room_id}/${player_id}?time=30000`, {
         method: 'POST',
         body: formData,
       });
