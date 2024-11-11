@@ -132,7 +132,7 @@ export default function TeachSelect({
       </Button>
       {isLoading && (
         <div className="absolute left-0 top-0 z-50 flex h-screen w-screen items-center justify-center bg-white opacity-60">
-          <Spinner color="primary" size="lg" />
+          <Spinner color="primary" label={`${timeLeft}秒後に送信されます。そのままお待ちください。`} size="lg" />
         </div>
       )}
     </form>
