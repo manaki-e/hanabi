@@ -12,6 +12,11 @@ type Card = {
   number: Number;
 };
 
+type History = {
+  message: string;
+  player_id: number;
+};
+
 export type Dataset = {
   teach_token: number;
   mistake_token: number;
@@ -21,11 +26,23 @@ export type Dataset = {
   player_hand: Card[];
   player_info: Card[];
   remaining_cards: number;
-  history: {
-    message: string;
-    player_id: number;
-  }[];
+  history: History[];
   trash_table: Record<Color, Number[]>;
   current_player: 0 | 1;
   is_finished: boolean;
+};
+
+export type TotalDataset = {
+  room_id: number;
+  is_finished: boolean;
+  total_points: number;
+  teach_token: number;
+  mistake_token: number;
+  deck_number: number;
+  history: History[];
+  elapsed_times: {
+    elapsed_time: number;
+    player_id: number;
+  }[];
+  agent_action_types: number[];
 };
