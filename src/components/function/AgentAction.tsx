@@ -24,7 +24,7 @@ export default function AgentAction({ room_id, player_id }: { room_id: string; p
 
     const timer = setTimeout(() => {
       window.location.reload();
-    }, thinkingTime * 1000);
+    }, thinkingTime);
 
     return () => clearTimeout(timer);
   }, [thinkingTime]);
