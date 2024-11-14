@@ -87,7 +87,7 @@ export default function ActionSelect({
           <Spinner
             color="primary"
             label={
-              Number(room_id) >= 100 && Number(room_id) < 200
+              Number(room_id) >= 100 && Number(room_id) < 150
                 ? `${timeLeft}秒後に送信されます。そのままお待ちください。`
                 : ''
             }

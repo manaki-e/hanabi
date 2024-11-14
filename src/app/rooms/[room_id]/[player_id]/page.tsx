@@ -22,7 +22,7 @@ export default async function Page({ params }: { params: Promise<{ room_id: stri
   const dataset = (await res.json()) as Dataset;
 
   const isPlayer = dataset.current_player === Number(player_id) % 2;
-  const isFixedTime = Number(room_id) >= 100 && Number(room_id) < 200;
+  const isFixedTime = Number(room_id) >= 100 && Number(room_id) < 150;
 
   return (
     <>
