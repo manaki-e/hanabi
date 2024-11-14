@@ -11,11 +11,7 @@ export default function RoomList({ rooms }: { rooms: Rooms }) {
 
   return (
     <Tabs aria-label="tabs" color="primary" fullWidth={true} radius="sm" variant="bordered">
-      <Tab
-        className="m-auto flex flex-wrap justify-center gap-12 overflow-y-scroll"
-        key="0-0"
-        title="模擬プレイ（先攻）"
-      >
+      <Tab className="m-auto flex flex-wrap justify-center gap-12 overflow-y-scroll" key="0-0" title="模擬プレイ(先攻)">
         {rooms.slice(0, quarterLength).map((room) => (
           <Button
             as={Link}
@@ -31,11 +27,7 @@ export default function RoomList({ rooms }: { rooms: Rooms }) {
           </Button>
         ))}
       </Tab>
-      <Tab
-        className="m-auto flex flex-wrap justify-center gap-12 overflow-y-scroll"
-        key="0-1"
-        title="模擬プレイ（後攻）"
-      >
+      <Tab className="m-auto flex flex-wrap justify-center gap-12 overflow-y-scroll" key="0-1" title="模擬プレイ(後攻)">
         {rooms.slice(0, quarterLength).map((room) => (
           <Button
             as={Link}
@@ -51,11 +43,7 @@ export default function RoomList({ rooms }: { rooms: Rooms }) {
           </Button>
         ))}
       </Tab>
-      <Tab
-        className="m-auto flex flex-wrap justify-center gap-12 overflow-y-scroll"
-        key="1-1-1"
-        title="実験1-1（先攻）"
-      >
+      <Tab className="m-auto flex flex-wrap justify-center gap-12 overflow-y-scroll" key="1-1-1" title="実験1-1(先攻)">
         {rooms.slice(quarterLength, quarterLength * 2).map((room) => (
           <Button
             as={Link}
@@ -71,11 +59,7 @@ export default function RoomList({ rooms }: { rooms: Rooms }) {
           </Button>
         ))}
       </Tab>
-      <Tab
-        className="m-auto flex flex-wrap justify-center gap-12 overflow-y-scroll"
-        key="1-1-2"
-        title="実験1-1（後攻）"
-      >
+      <Tab className="m-auto flex flex-wrap justify-center gap-12 overflow-y-scroll" key="1-1-2" title="実験1-1(後攻)">
         {rooms.slice(quarterLength, quarterLength * 2).map((room) => (
           <Button
             as={Link}
@@ -91,11 +75,7 @@ export default function RoomList({ rooms }: { rooms: Rooms }) {
           </Button>
         ))}
       </Tab>
-      <Tab
-        className="m-auto flex flex-wrap justify-center gap-12 overflow-y-scroll"
-        key="1-2-1"
-        title="実験1-2（先攻）"
-      >
+      <Tab className="m-auto flex flex-wrap justify-center gap-12 overflow-y-scroll" key="1-2-1" title="実験1-2(先攻)">
         {rooms.slice(quarterLength * 2, quarterLength * 3).map((room) => (
           <Button
             as={Link}
@@ -111,11 +91,7 @@ export default function RoomList({ rooms }: { rooms: Rooms }) {
           </Button>
         ))}
       </Tab>
-      <Tab
-        className="m-auto flex flex-wrap justify-center gap-12 overflow-y-scroll"
-        key="1-2-2"
-        title="実験1-2（後攻）"
-      >
+      <Tab className="m-auto flex flex-wrap justify-center gap-12 overflow-y-scroll" key="1-2-2" title="実験1-2(後攻)">
         {rooms.slice(quarterLength * 2, quarterLength * 3).map((room) => (
           <Button
             as={Link}
