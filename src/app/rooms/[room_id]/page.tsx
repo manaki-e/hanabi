@@ -20,6 +20,7 @@ export default async function Page({ params }: { params: Promise<{ room_id: stri
           agent_action_types={totalDataset.agent_action_types}
           elapsed_times={totalDataset.elapsed_times}
           history={totalDataset.history}
+          playing_card_hint={totalDataset.playing_card_hint}
         />
       </div>
     </div>
