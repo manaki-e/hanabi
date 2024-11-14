@@ -11,6 +11,7 @@ export default function OverviewData({ totalDataset }: { totalDataset: TotalData
       <TableHeader>
         <TableColumn align="center">部屋番号</TableColumn>
         <TableColumn align="center">ステータス</TableColumn>
+        <TableColumn align="center">残りの山札枚数</TableColumn>
         <TableColumn align="center">デッキ番号</TableColumn>
         <TableColumn align="center">ミストークン</TableColumn>
         <TableColumn align="center">ヒントトークン</TableColumn>
@@ -30,6 +31,7 @@ export default function OverviewData({ totalDataset }: { totalDataset: TotalData
               </Chip>
             )}
           </TableCell>
+          <TableCell>{totalDataset.remaining_cards}</TableCell>
           <TableCell>{totalDataset.deck_number}</TableCell>
           <TableCell>{totalDataset.mistake_token}</TableCell>
           <TableCell>{totalDataset.teach_token}</TableCell>

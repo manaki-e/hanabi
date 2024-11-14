@@ -39,6 +39,7 @@ export type TotalDataset = {
   teach_token: number;
   mistake_token: number;
   deck_number: number;
+  remaining_cards: number;
   history: History[];
   elapsed_times: {
     elapsed_time: number;
