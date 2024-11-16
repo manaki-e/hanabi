@@ -38,7 +38,6 @@ export default function ActionSelect({
   const isTrashButtonDisabled = isButtonDisabled || teach_token === TEACH_TOKEN;
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    console.log(room_id, player_id);
     event.preventDefault();
     setIsLoading(true);
     const elapsed_time = getCurrentTime() - startTime;
