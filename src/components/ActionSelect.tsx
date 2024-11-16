@@ -47,7 +47,7 @@ export default function ActionSelect({
         () => {
           submitData(event, room_id, player_id, formData, elapsed_time).finally(() => setIsLoading(false));
         },
-        (timeLeft - 1) * 1000,
+        (timeLeft - 2) * 1000,
       );
     } else {
       submitData(event, room_id, player_id, undefined, elapsed_time).finally(() => setIsLoading(false));

@@ -36,33 +36,37 @@ export default function Timer({
       : uniqueNumbers[Math.floor(Math.random() * uniqueNumbers.length)];
 
   useEffect(() => {
-    if (timeLeft < 0) {
-      const formData = new FormData();
-      if (teach_token === TEACH_TOKEN) {
-        formData.append('form_id', 'hint');
-        formData.append('teach', hintTypes);
-        formData.append(hintTypes, String(hint));
-      } else {
-        formData.append('form_id', 'action');
-        formData.append('index', '0');
-        formData.append('act', 'trash');
+    const performFetch = async () => {
+      if (timeLeft == 0) {
+        const formData = new FormData();
+        if (teach_token === TEACH_TOKEN) {
+          formData.append('form_id', 'hint');
+          formData.append('teach', hintTypes);
+          formData.append(hintTypes, String(hint));
+        } else {
+          formData.append('form_id', 'action');
+          formData.append('index', '0');
+          formData.append('act', 'trash');
+        }
+        if (teach_token === TEACH_TOKEN) {
+          onOpen();
+          setModalMessage('そのため、自動的にヒントを与えました。');
+        } else {
+          onOpen();
+          setModalMessage('そのため、自動的に一番左のカードを捨てました。');
+        }
+        await fetch(`${process.env.NEXT_PUBLIC_API_URL}/${room_id}/${player_id}?time=30000`, {
+          method: 'POST',
+          body: formData,
+        });
+        setTimeout(() => {
+          onOpenChange();
+          window.location.reload();
+        }, 3000);
       }
-      fetch(`${process.env.NEXT_PUBLIC_API_URL}/${room_id}/${player_id}?time=30000`, {
-        method: 'POST',
-        body: formData,
-      });
-      if (teach_token === TEACH_TOKEN) {
-        onOpen();
-        setModalMessage('そのため、自動的にヒントを与えました。');
-      } else {
-        onOpen();
-        setModalMessage('そのため、自動的に一番左のカードを捨てました。');
-      }
-      setTimeout(() => {
-        onOpenChange();
-        window.location.reload();
-      }, 3000);
-    }
+    };
+
+    performFetch();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [timeLeft]);
 
