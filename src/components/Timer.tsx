@@ -48,21 +48,22 @@ export default function Timer({
           formData.append('index', '0');
           formData.append('act', 'trash');
         }
-        if (teach_token === TEACH_TOKEN) {
-          onOpen();
-          setModalMessage('そのため、自動的にヒントを与えました。');
-        } else {
-          onOpen();
-          setModalMessage('そのため、自動的に一番左のカードを捨てました。');
-        }
         await fetch(`${process.env.NEXT_PUBLIC_API_URL}/${room_id}/${player_id}?time=30000`, {
           method: 'POST',
           body: formData,
+        }).finally(() => {
+          if (teach_token === TEACH_TOKEN) {
+            onOpen();
+            setModalMessage('そのため、自動的にヒントを与えました。');
+          } else {
+            onOpen();
+            setModalMessage('そのため、自動的に一番左のカードを捨てました。');
+          }
+          setTimeout(() => {
+            onOpenChange();
+            window.location.reload();
+          }, 3000);
         });
-        setTimeout(() => {
-          onOpenChange();
-          window.location.reload();
-        }, 3000);
       }
     };
 

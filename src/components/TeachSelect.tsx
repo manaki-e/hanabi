@@ -69,7 +69,7 @@ export default function TeachSelect({
         () => {
           submitData(event, room_id, player_id, formData, elapsed_time).finally(() => setIsLoading(false));
         },
-        (timeLeft - 5) * 1000,
+        (timeLeft - 2) * 1000,
       );
     } else {
       submitData(event, room_id, player_id, undefined, elapsed_time).finally(() => setIsLoading(false));
@@ -136,7 +136,7 @@ export default function TeachSelect({
             color="primary"
             label={
               Number(room_id) >= 100 && Number(room_id) < 150
-                ? `${timeLeft - 5}秒後に送信されます。そのままお待ちください。`
+                ? `${timeLeft}秒後に送信されます。そのままお待ちください。`
                 : ''
             }
             size="lg"
