@@ -47,7 +47,7 @@ export default function ActionSelect({
         () => {
           submitData(event, room_id, player_id, formData, elapsed_time).finally(() => setIsLoading(false));
         },
-        (timeLeft - 2) * 1000,
+        (timeLeft - 10) * 1000,
       );
     } else {
       submitData(event, room_id, player_id, undefined, elapsed_time).finally(() => setIsLoading(false));
@@ -87,7 +87,7 @@ export default function ActionSelect({
             color="primary"
             label={
               Number(room_id) >= 100 && Number(room_id) < 150
-                ? `${timeLeft}秒後に送信されます。そのままお待ちください。`
+                ? `${timeLeft > 10 ? timeLeft - 10 : 0}秒後に送信されます。そのままお待ちください。`
                 : ''
             }
             size="lg"
