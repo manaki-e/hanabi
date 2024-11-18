@@ -36,7 +36,7 @@ export default async function Page({ params }: { params: Promise<{ room_id: stri
             <div className="flex gap-8">
               <CircularProgress
                 classNames={{
-                  svg: 'w-20 h-20 drop-shadow-md',
+                  svg: 'w-16 h-16 drop-shadow-md',
                   indicator: 'stroke-primary',
                   track: 'stroke-white/10',
                   value: 'text-2xl font-semibold text-primary',
@@ -51,7 +51,7 @@ export default async function Page({ params }: { params: Promise<{ room_id: stri
               />
               <CircularProgress
                 classNames={{
-                  svg: 'w-20 h-20 drop-shadow-md',
+                  svg: 'w-16 h-16 drop-shadow-md',
                   indicator: 'stroke-primary',
                   track: 'stroke-white/10',
                   value: 'text-2xl font-semibold text-primary',
@@ -68,7 +68,7 @@ export default async function Page({ params }: { params: Promise<{ room_id: stri
             <div className="flex gap-8">
               <CircularProgress
                 classNames={{
-                  svg: 'w-20 h-20 drop-shadow-md',
+                  svg: 'w-16 h-16 drop-shadow-md',
                   indicator: 'stroke-warning',
                   track: 'stroke-white/10',
                   value: 'text-2xl font-semibold text-warning',
@@ -83,7 +83,7 @@ export default async function Page({ params }: { params: Promise<{ room_id: stri
               />
               <CircularProgress
                 classNames={{
-                  svg: 'w-20 h-20 drop-shadow-md',
+                  svg: 'w-16 h-16 drop-shadow-md',
                   indicator: 'stroke-success',
                   track: 'stroke-white/10',
                   value: 'text-2xl font-semibold text-success',
