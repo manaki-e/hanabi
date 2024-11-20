@@ -30,7 +30,7 @@ export default async function Page({ params }: { params: Promise<{ room_id: stri
         !dataset.is_finished &&
         (player_id !== '2' ? <AutoReload /> : <AgentAction player_id={player_id} room_id={room_id} />)}
 
-      <div className="flex size-full justify-between gap-4">
+      <div className={`flex size-full justify-between gap-4 ${isPlayer ? 'bg-blue-50' : 'bg-yellow-50'}`}>
         <div className="flex w-1/4 flex-col justify-between p-4">
           <div className="flex flex-col items-center gap-4">
             <div className="flex gap-8">
