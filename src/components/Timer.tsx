@@ -75,7 +75,7 @@ export default function Timer({
     <>
       <CircularProgress
         classNames={{
-          svg: 'w-20 h-20 drop-shadow-md',
+          svg: 'w-28 h-28 drop-shadow-md',
           indicator: 'stroke-danger',
           track: 'stroke-white/10',
           value: 'text-3xl font-semibold text-danger',
