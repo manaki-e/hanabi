@@ -97,13 +97,15 @@ export default async function Page({ params }: { params: Promise<{ room_id: stri
                 value={dataset.field_cards.reduce((sum: number, card: { number: number }) => sum + card.number, 0)}
               />
             </div>
-            <Timer
-              disabled={!isPlayer || dataset.is_finished}
-              opponent_hand={dataset.opponent_hand}
-              player_id={player_id}
-              room_id={room_id}
-              teach_token={dataset.teach_token}
-            />
+            {Number(player_id) !== 2 && (
+              <Timer
+                disabled={!isPlayer || dataset.is_finished}
+                opponent_hand={dataset.opponent_hand}
+                player_id={player_id}
+                room_id={room_id}
+                teach_token={dataset.teach_token}
+              />
+            )}
           </div>
           <TrashTable trash_table={dataset.trash_table} />
         </div>
