@@ -17,7 +17,7 @@ export default function RoomList({ rooms }: { rooms: Rooms }) {
             as={Link}
             color="success"
             href={`/rooms/${room.room_id}/0`}
-            isDisabled={room.is_finished}
+            isDisabled={room.is_started}
             key={room.room_id}
             size="lg"
             target="_blank"
@@ -33,7 +33,7 @@ export default function RoomList({ rooms }: { rooms: Rooms }) {
             as={Link}
             color="danger"
             href={`/rooms/${room.room_id}/1`}
-            isDisabled={room.is_finished}
+            isDisabled={room.is_started}
             key={room.room_id}
             size="lg"
             target="_blank"
@@ -49,7 +49,7 @@ export default function RoomList({ rooms }: { rooms: Rooms }) {
             as={Link}
             color="success"
             href={`/rooms/${room.room_id}/0`}
-            isDisabled={room.is_finished}
+            isDisabled={room.is_started}
             key={room.room_id}
             size="lg"
             target="_blank"
@@ -65,7 +65,7 @@ export default function RoomList({ rooms }: { rooms: Rooms }) {
             as={Link}
             color="danger"
             href={`/rooms/${room.room_id}/1`}
-            isDisabled={room.is_finished}
+            isDisabled={room.is_started}
             key={room.room_id}
             size="lg"
             target="_blank"
@@ -81,7 +81,7 @@ export default function RoomList({ rooms }: { rooms: Rooms }) {
             as={Link}
             color="success"
             href={`/rooms/${room.room_id}/0`}
-            isDisabled={room.is_finished}
+            isDisabled={room.is_started}
             key={room.room_id}
             size="lg"
             target="_blank"
@@ -97,7 +97,7 @@ export default function RoomList({ rooms }: { rooms: Rooms }) {
             as={Link}
             color="danger"
             href={`/rooms/${room.room_id}/1`}
-            isDisabled={room.is_finished}
+            isDisabled={room.is_started}
             key={room.room_id}
             size="lg"
             target="_blank"
@@ -113,7 +113,7 @@ export default function RoomList({ rooms }: { rooms: Rooms }) {
             as={Link}
             color="warning"
             href={`/rooms/${room.room_id}/2`}
-            isDisabled={room.is_finished}
+            isDisabled={room.is_started}
             key={room.room_id}
             size="lg"
             target="_blank"
@@ -129,7 +129,7 @@ export default function RoomList({ rooms }: { rooms: Rooms }) {
             as={Link}
             color="warning"
             href={`/rooms/${room.room_id}/2`}
-            isDisabled={room.is_finished}
+            isDisabled={room.is_started}
             key={room.room_id}
             size="lg"
             target="_blank"
