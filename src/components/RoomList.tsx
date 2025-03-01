@@ -11,7 +11,7 @@ export default function RoomList({ rooms }: { rooms: Rooms }) {
 
   return (
     <Tabs aria-label="tabs" color="primary" fullWidth={true} radius="sm" variant="bordered">
-      <Tab className="m-auto flex flex-wrap justify-center gap-12 overflow-y-scroll" key="0-0" title="模擬プレイ(先)">
+      {/* <Tab className="m-auto flex flex-wrap justify-center gap-12 overflow-y-scroll" key="0-0" title="模擬プレイ(先)">
         {rooms.slice(0, quarterLength).map((room) => (
           <Button
             as={Link}
@@ -106,8 +106,8 @@ export default function RoomList({ rooms }: { rooms: Rooms }) {
             {room.room_id}
           </Button>
         ))}
-      </Tab>
-      <Tab className="m-auto flex flex-wrap justify-center gap-12 overflow-y-scroll" key="2-1" title="実験2-1">
+      </Tab> */}
+      <Tab className="m-auto flex flex-wrap justify-center gap-12 overflow-y-scroll" key="2-1" title="Base">
         {rooms.slice(quarterLength * 3, quarterLength * 4).map((room) => (
           <Button
             as={Link}
@@ -123,7 +123,11 @@ export default function RoomList({ rooms }: { rooms: Rooms }) {
           </Button>
         ))}
       </Tab>
-      <Tab className="m-auto flex flex-wrap justify-center gap-12 overflow-y-scroll" key="2-2" title="実験2-2">
+      <Tab
+        className="m-auto flex flex-wrap justify-center gap-12 overflow-y-scroll"
+        key="2-2"
+        title="Thinking Time"
+      >
         {rooms.slice(quarterLength * 4).map((room) => (
           <Button
             as={Link}
